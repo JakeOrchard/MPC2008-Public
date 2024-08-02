@@ -16,7 +16,7 @@ Orchard, Jacob, Valerie A. Ramey, and Johannes F. Wieland. Micro MPCs and macro 
 You will need your own FREDKEY and BEA keys to download the source data. Place the FREDKEY in line 34 of `MPC/forecasting/code/build_forecast_data.do` and place the BEA key in line 14 of `MPC/downloaddata/code/pcefromBEA.py`. 
 
 ### UNIX and MAC users
-UNIX and MAC users can run the entire project using make. Simply type the following three commands in a terminal and the project will build from scratch. 
+UNIX and MAC users can run the entire project using `make`. Simply type the following three commands in a terminal and the project will build from scratch. 
 
 (1) `make install`
 
@@ -27,9 +27,13 @@ UNIX and MAC users can run the entire project using make. Simply type the follow
 
 # How to Run MPC project on a Windows Computer
 
+The replication code files are designed to be run on a server or computer that has access to the `make` command. We make no guarantees that the project will run smoothly on a Windows system, since `make` is not native to Windows. However, we have been able to run the project on Windows by installing a version of `make` using chocolatey. These are the steps that worked for us, however, we do not maintain any of the linked how-to sites or packages and cannot provide support for these steps. 
+
+Alternatively, a windows user can run separately the code files they need in our replication files. 
+
 ## Preliminaries
 
-Prior to running the project, you'll want to make sure that you have the latest versions of Anaconda and Git set up on your windows PC. Then install make via chocolatey. I'd recommend installing make last.
+Prior to running the project, you'll want to make sure that you have the latest versions of Anaconda and Git set up on your windows PC. Then install make via chocolatey. We'd recommend installing make last.
 
 ### Git and Git Bash (Required)
 
@@ -43,12 +47,12 @@ Once Git is installed. You'll also need to create an account on Github. Once you
 
 You may already have Anaconda installed on your system. If not, you can follow the guide [here](https://problemsolvingwithpython.com/01-Orientation/01.03-Installing-Anaconda-on-Windows/)
 
-Once installed, I'd recommend[ adding Anaconda to your path.](https://www.geeksforgeeks.org/how-to-setup-anaconda-path-to-environment-variable/)
+Once installed, we'd recommend[ adding Anaconda to your path.](https://www.geeksforgeeks.org/how-to-setup-anaconda-path-to-environment-variable/)
 
 
 ### Make for Windows (Required)
 
-There are a number of ways to install make on windows. I've tried most and would highly recommend installing make via chocolatey, which is a package manager for windows (similar to anaconda, but for applications outside of python). 
+There are a number of ways to install make on windows. We've tried most and would highly recommend installing make via chocolatey, which is a package manager for windows (similar to anaconda, but for applications outside of python). 
 
 [This article ](https://pakstech.com/blog/make-windows/) has step by step instructions on how to install chocolatey and then how to install make from chocolatey. Chocolatey should automatically add make to your path. 
 
@@ -99,7 +103,7 @@ Next, with **Git Bash** reopened, navigate to the MPC directory and type in the 
 
 `conda env create -f win_environment.yml`
 
-This will create a _virtual environment_ that will have all of the same packages that I used when running the code on my windows machine. This environment is called MPC. It may take 10-20 minutes for conda to install all of the necessary packages (you also may be prompted to type **y** to agree to the setup). 
+This will create a _virtual environment_ that will have all of the same packages that we used when running the code on my windows machine. This environment is called MPC. It may take 10-20 minutes for conda to install all of the necessary packages (you also may be prompted to type **y** to agree to the setup). 
 
 Activate the environment:
 

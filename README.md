@@ -11,7 +11,7 @@ Please cite as:
 Orchard, Jacob, Valerie A. Ramey, and Johannes F. Wieland. Micro MPCs and macro counterfactuals: the case of the 2008 rebates. The Quarterly Journal of Economics (Forthcoming)
 
 
-# To Run
+# To Run Entire Project
 
 You will need your own FREDKEY and BEA keys to download the source data. Place the FREDKEY in line 34 of `MPC/forecasting/code/build_forecast_data.do` and place the BEA key in line 14 of `MPC/downloaddata/code/pcefromBEA.py`. 
 
@@ -25,6 +25,12 @@ UNIX and MAC users can run the entire project using `make`. Simply type the foll
 (2) `make venv`
 
 (3) `make`
+
+# Order of Tasks to Create Final output
+
+This project is divided into a series of subfolders that execute all of the tasks leading to final output beginning with downloaddata and ending with _finaltablesandfigures. Each subfolder contains both a code directory and, once-executed,  input and output directories. The input directory will have symbolic links to output from previous tasks, while the output directroy will include all of the output used by subsequent tasks or used in the final project. 
+
+The makefile, "make" in the main folder shows the order of execution of the subfolders. The final output for the paper is mostly created in the forecasting, psmjregressions, model, and narrative subfolders. 
 
 
 # How to Run MPC project on a Windows Computer

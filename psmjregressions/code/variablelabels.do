@@ -1,6 +1,6 @@
 version 16
 cap ssc install did_imputation
-
+cap ssc install eventstudyweights
 
 foreach frequency in "interview" "monthly"     { //
 

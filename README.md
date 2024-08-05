@@ -15,6 +15,8 @@ Orchard, Jacob, Valerie A. Ramey, and Johannes F. Wieland. Micro MPCs and macro 
 
 You will need your own FREDKEY and BEA keys to download the source data. Place the FREDKEY in line 34 of `MPC/forecasting/code/build_forecast_data.do` and place the BEA key in line 14 of `MPC/downloaddata/code/pcefromBEA.py`. 
 
+We used STATA version 16.1 and Python 3.9 to run this project.
+
 ### UNIX and MAC users
 UNIX and MAC users can run the entire project using `make`. Simply type the following three commands in a terminal and the project will build from scratch. 
 

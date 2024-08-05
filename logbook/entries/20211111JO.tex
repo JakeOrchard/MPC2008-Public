@@ -1,0 +1,97 @@
+
+
+One of Parker's main critiques of Valerie's discussion was that using the National Income and Product Accounts (NIPA)
+ to analyse changes in aggregate spending over a small period is problematic; the PCE comes from multiple 
+ retail sources and smooths the data [After re-reading Parker's comments, I think the fact that Valerie found 
+ changes in the savings rate in the smoothed NIPA data actually supports her conclusion]. 
+This in progress section compares the NIPA time series with similar series in the CEX and Retail data (TBD). 
+
+
+\subsection{How is the PCE Constructed?}
+
+Jake: Will write this section. 
+
+
+\subsection{NIPA versus CEX}
+
+
+
+
+
+How does spending in the National Income and Product Accounts (NIPA) compare with spending in the CEX? One key series from 
+NIPA is Personal Consumption Expenditures (PCE). The PCE includes all consumption spending by and in behalf of households,
+ while the CEX only measures householdout-of-pocket spending. Figure \ref{fig:nipavcex} shows sector level comparison 
+ of Per-capita expenditure in the CEX with corresponding spending in subcomponents of the PCE. 
+ Some series such as gasoline and vehicle spending track each other quite closely, while for others 
+ (particularly services) spending in the PCE is much higher than spending in the CEX. A gap between the PCE and the 
+ CEX should be expected as the CEX includes only household spending, while the PCE includes consumption spending by 
+ third-parties (for example employer provided health-insurance). 
+
+Another key difference between the PCE and the CEX, is the CEX is reported directly by households. This introduces two 
+issues: (1) reporting smoothing (Add citations) and (2) under-reporting (Aguiar and Bils 2015 and add other citations). Expenditure smoothing
+could possibly explain by the fall in expenditure during 2007-09 is larger in the PCE series than in the CEX. Under-reporting appears to 
+have grown over-time. 
+
+
+\begin{figure}
+    \caption{NIPA v CEX}
+    \label{fig:nipavcex}
+    \begin{tabular}{cc}
+\includegraphics[scale=.2]{figures/gas_cexvnipa} &
+\includegraphics[scale=.2]{figures/food_cexvnipa} \\
+\includegraphics[scale=.2]{figures/clothing_cexvnipa} &
+\includegraphics[scale=.2]{figures/nondurables_cexvnipa} \\
+\includegraphics[scale=.2]{figures/mvparts_cexvnipa} & 
+\includegraphics[scale=.2]{figures/furn_cexvnipa} \\
+\includegraphics[scale=.2]{figures/durables_cexvnipa} & 
+\includegraphics[scale=.2]{figures/services_cexvnipa} \\
+    \end{tabular}
+\end{figure}
+
+\begin{figure}
+    \caption{Total ``PCE'' Consumption Spending}
+    \label{fig:total_pce}
+    \centering
+\includegraphics[scale=.5]{figures/pce_cexvnipa}
+
+\end{figure}
+
+
+
+During the period of the 2008 rebates, summer 2008, are there any abnormal changes in the relationship between the PCE series and the CEX series?
+Figure \ref{fig:lR_nipavcex} shows the log-difference of expenditure in the PCE with expenditure in the CEX $\log(PCE)_t -\log(CEX)_t$ from 
+2007-2010. It does not appear that the difference for the overall PCE or services changes much around the summer of 2008.\footnote{Durables
+are not pictured because its series is very volatile.} However, there is a large 
+drop in the log-difference for non-durables (this means that reported expenditure  in the CEX rises compared to the PCE), which troughs 
+in April 2008 right before the first stimulus checks were sent out. 
+
+
+
+
+%\begin{figure}
+ %   \caption{Log-Ratio NIPA and CEX Expenditure 2007-2010}
+ %   \label{fig:lR_nipavcex}
+ %   \centering
+%\includegraphics[scale=.5]{figures/diff_cexvnipa}
+
+%\end{figure}
+
+
+We formally test whether the PCE/CEX relationship was abnormally different during the summer of 2008 by regressing the log-difference
+of the two series on an indicator for May-August of 2008, when X percent of the rebate was distributed:
+
+\begin{align}
+    \log \left( \frac{NIPA Series}{CEX Series}   \right)_t = \beta_0 + \beta_1 1(t = \textit{May-August 2008})_t + T_t + \epsilon_t,
+\end{align}
+
+where $T_t$ is a linear time-trend meant to compensate for the increase in CEX under-reporting over-time. Table \ref{table:pceVcex}
+shows the results of this analysis. Column one shows that even when compensating for the linear time-trend, the gap 
+between reported PCE and CEX spending is smaller than average. Column two also adds indicators for the other months
+in 2008 (January-April and September-December). The coefficents on these indicators are similar in magnitude to 
+
+
+[Side-thought using time fixed effects to look at above-below average change in a volatile series is quite problematic.
+Why? Just about everything is significantly different from normal when the series is volatile. Better may to take the 
+reported fixed effects and then see how much they differ from each other.]
+
+

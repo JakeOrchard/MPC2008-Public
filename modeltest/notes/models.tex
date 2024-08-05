@@ -1,0 +1,526 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+
+% \section{No fixed cost}
+
+% Cash on hand
+% \begin{align*}
+%     x' = a' + (1-\delta)d'
+% \end{align*}
+
+% Budget constraint
+% \begin{align*}
+%     \frac{a'}{(1+r)}+c'+d' = x + y
+% \end{align*}
+
+% Borrowing constraint
+% \begin{align*}
+%     a'\ge 0
+% \end{align*}
+
+% Value function
+% \begin{align*}
+%     V(y,x) = \max_{c',d',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',x')]
+% \end{align*}
+
+% First order conditions:
+% \begin{align*}
+%     V_x(y,x) &= \beta (1+r) E_y V_x(y',x') + \zeta \\
+%     \frac{\psi}{c'} &= \beta (1+r) E_y V_x(y',x') + \zeta \\
+%     \frac{1-\psi}{d'} &= \beta (\delta+r) E_y V_x(y',x') + \zeta \\
+% \end{align*}
+
+% When BC not binding:
+% \begin{align*}
+%     \frac{\psi}{1-\psi}\frac{d'}{c'} = \frac{1+r}{\delta+r}
+% \end{align*}
+
+% When BC is binding:
+% \begin{align*}
+%     \frac{\psi}{c'} - \frac{1-\psi}{d'}  &= \beta (1-\delta) E_y V_x(y',x') \\
+%     \frac{\psi}{x+y-d'} - \frac{1-\psi}{d'}  &= \beta (1-\delta) E_y V_x(y',(1-\delta)d')
+% \end{align*}
+
+
+% \section{Local EGM Approach}
+
+% Cash on hand
+% \begin{align*}
+%     x = a + (1-\delta)d
+% \end{align*}
+
+% Budget constraint
+% \begin{align*}
+%     \frac{a'}{(1+r)}+c'+ d' = x + y
+% \end{align*}
+
+% Borrowing constraint
+% \begin{align*}
+%     a'\ge 0
+% \end{align*}
+
+% Value function
+% \begin{align*}
+%     V(y,d,a) = \max_{c',d',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',d',a')]
+% \end{align*}
+
+% Break up into sequential problem of choosing c',a' given d'. Then choose d'.
+
+% \subsection{Keeper problem}
+
+% For given choice of d':
+% \begin{align*}
+%     V^{keep}(y,n,m) &= \max_{c',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',d',a')] \\
+%     d' &= n \\
+%     a' &= (m - c')  (1 + r) \\
+%     a' &\ge 0
+% \end{align*}
+
+% First order conditions:
+% \begin{align*}
+%     V_m^{keep}(y,n,m) &= \beta (1+r) E_y V_a(y',d',a') + \zeta \\
+%     V_n^{keep}(y,n,m) &=\frac{(1-\psi)}{d'} + \beta E_y V_d(y',d',a') \\
+%     \frac{\psi}{c'} &= \beta E_y (1+r) V_a(y',d',a')  + \zeta 
+% \end{align*}
+
+% Use last FOC to calculate EGM solutions:
+% \begin{align*}
+%     c^{keep}(y,n,m), a^{keep}(y,n,m)
+% \end{align*}
+
+% \subsection{Adjuster problem}
+
+% \begin{align*}
+%     V(y,x)^{adj} &= \max_{d'} V^{keep}(y,d',m') \\
+%     m' &= x+y-d' \\
+%     m' &\ge 0
+% \end{align*}
+
+% FOC
+% \begin{align*}
+%     V_x^{adj}(y,x) = V_m^{keep}(y,d',m') + \kappa
+%     V_d^{keep}(y,d',m') = V_m^{keep}(y,d',m') + \kappa
+% \end{align*}
+
+% Note that $\kappa=0$ since $m=0$ will never be optimal as it implies $c'=0$.
+
+% Combining adjuster and keeper FOCs:
+% \begin{align*}
+%     V_m^{keep}(y,d',m')  &= V_d^{keep}(y,d',m') \\
+%     \frac{\psi}{c'} &= \frac{(1-\psi)}{d'} + \beta E_y V_d(y',d',(x+y-c'-d')(1+r))
+% \end{align*}
+
+% This yields adjustment solutions
+% \begin{align*}
+%     c^{adj}(y,x), a^{adj}(y,x), d^{adj}(y,x)
+% \end{align*}
+
+% \subsection{Combined Problem}
+
+% When there is not FC, then adjusting is always optimal. We can interpolate the 
+% adjustment solutions onto the $(y,d,a)$ grid using
+
+% \begin{align*}
+%     c'(y,d,a), a'(y,d,a), d'(y,d,a)
+% \end{align*}
+
+% We need to update the derivatives of the value functions. Using $x=a + (1-\delta)d$ 
+% we update the marginal value of assets,
+% \begin{align*}
+%     V_a(y,d,a) &= V_x^{adj}(y,a+(1-\delta)d) \\
+%     &=V_m^{keep}(y,d'(y,d,a),a+(1-\delta)d+y-d'(y,d,a)) \\
+%     &=\frac{\psi}{c'(y,d,a)} 
+% \end{align*}
+% and the marginal value of durables,
+% \begin{align*}
+%     V_d(y,d,a) &= (1-\delta) V_x^{adj}(y,a+(1-\delta)d) \\
+%     &=(1-\delta) V_d^{keep}(y,d'(y,d,a),a+(1-\delta)d+y-d'(y,d,a)) \\
+%     &=\frac{(1-\psi)(1-\delta)}{d'(y,d,a)} + (1-\delta)\beta E_y V_d(y,d'(y,d,a),(a+(1-\delta)d+y-d'(y,d,a)-c'(y,d,a))(1+r)).
+% \end{align*}
+
+
+
+
+% \section{Local EGM Approach with Fixed Cost}
+
+% Cash on hand
+% \begin{align*}
+%     x = a + (1-\delta)d
+% \end{align*}
+
+% Budget constraint
+% \begin{align*}
+%     \frac{a'}{(1+r)}+c'+ d' = x + y
+% \end{align*}
+
+% Borrowing constraint
+% \begin{align*}
+%     a'\ge 0
+% \end{align*}
+
+% Value function
+% \begin{align*}
+%     V(y,d,a) = \max\{&\max_{c'+d'+\frac{a'}{1+r}\le a+(1-\delta)(1-f)d+y}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',d',a')] , \\
+%     & \max_{c'+a'\le a+y}[\psi \ln c' +(1-\psi) \ln (1-\delta)d + \beta E_y V(y',(1-\delta)d,a')]\}
+% \end{align*}
+
+% Break up into sequential problem of choosing c',a' given d'. Then choose d'.
+
+% \subsection{Keeper problem}
+
+% For given choice of d':
+% \begin{align*}
+%     V^{keep}(y,n,m) &= \max_{c',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',d',a')] \\
+%     d' &= n \\
+%     a' &= (m - c')  (1 + r) \\
+%     a' &\ge 0
+% \end{align*}
+
+% First order conditions:
+% \begin{align*}
+%     V_m^{keep}(y,n,m) &= \beta (1 + r) E_y V_a(y',d',a') + \zeta \\
+%     V_n^{keep}(y,n,m) &=\frac{(1-\psi)}{d'} + \beta E_y V_d(y',d',a') \\
+%     \frac{\psi}{c'} &= \beta (1 + r) E_y V_a(y',d',a')  + \zeta 
+% \end{align*}
+
+% Use last FOC to calculate EGM solutions:
+% \begin{align*}
+%     c^{keep}(y,n,m), a^{keep}(y,n,m)
+% \end{align*}
+
+% The no adjustment solutions use $n=(1-\delta)d$ and $m=a+y$
+% \begin{align*}
+%     c^{noadj}(y,(1-\delta)d,a+y), a^{noadj}(y,(1-\delta)d,a+y), d^{noadj}=(1-\delta)d
+% \end{align*}
+
+% \subsection{Adjuster problem}
+
+% \begin{align*}
+%     V(y,x)^{adj} &= \max_{d'} V^{keep}(y,d',m') \\
+%     m' &= x+y-d' \\
+%     m' &\ge 0
+% \end{align*}
+
+% FOC
+% \begin{align*}
+%     V_x^{adj}(y,x) = V_m^{keep}(y,d',m') + \kappa
+%     V_d^{keep}(y,d',m') = V_m^{keep}(y,d',m') + \kappa
+% \end{align*}
+
+% Note that $\kappa=0$ since $m=0$ will never be optimal as it implies $c'=0$.
+
+% Combining adjuster and keeper FOCs:
+% \begin{align*}
+%     V_m^{keep}(y,d',m')  &= V_d^{keep}(y,d',m') \\
+%     \frac{\psi}{c'} &= \frac{(1-\psi)}{d'} + \beta E_y V_d(y',d',x-c'-d')
+% \end{align*}
+
+% This yields adjustment solutions
+% \begin{align*}
+%     c^{adj}(y,x), a^{adj}(y,x), d^{adj}(y,x)
+% \end{align*}
+% and a value function
+% \begin{align*}
+%     V^{adj}(y,x) &= \psi \ln c^{adj}(y,x) +(1-\psi) \ln d^{adj}(y,x) + \beta E_y V(y',d^{adj}(y,x),a^{adj}(y,x)) \\
+% \end{align*}
+% Note: with distribution of fixed costs, should probably just interpolate $V^{adj}(y,x)$.
+
+% We interpolate onto the existing grid using $x=a+(1-\delta)(1-f)d$
+% \begin{align*}
+%     c^{adj}(y,d,a), a^{adj}(y,d,a), d^{adj}(y,d,a)
+% \end{align*}
+
+% \subsection{Combined Problem}
+
+% Value functions from not adjusting and adjusting are
+% \begin{align*}
+%     V^{noadj}(y,d,a) &= \psi \ln c^{noadj}(a,d,y) +(1-\psi) \ln (1-\delta)d + \beta E_y V(y',(1-\delta)d,a^{noadj}(a,d,y)) \\
+%     V^{adj}(y,d,a) &= \psi \ln c^{adj}(a,d,y) +(1-\psi) \ln d^{adj}(a,d,y) + \beta E_y V(y',d^{adj}(a,d,y),a^{adj}(a,d,y)) \\
+%     V(a,d,y) &= \max\{V^{noadj}(y,d,a),V^{adj}(y,d,a)\} \\
+%     adj(a,d,y) &= (V^{adj}(y,d,a) > V^{noadj}(y,d,a))
+% \end{align*}
+
+% Get policy functions by combining adjust and no-adjust solutions.
+
+% \begin{align*}
+%     c'(y,d,a), a'(y,d,a), d'(y,d,a)
+% \end{align*}
+
+% We need to update the derivatives of the value functions. The marginal value of 
+% assets:
+% \begin{align*}
+%     V_a(y,d,a)  &= adj(a,d,y) V_a^{adj}(y,d,a) + (1-adj(a,d,y)) V_a^{noadj}(y,d,a) \\
+%     &= adj(a,d,y)\frac{\psi}{c^{adj}(y,d,a)} + (1-adj(a,d,y)) \frac{\psi}{c^{noadj}(y,d,a)} \\
+%     &=\frac{\psi}{c'(y,d,a)} 
+% \end{align*}
+% I do not think this object is well defined at the adjustment threshold since there
+% is a kink in the value function. I.e., $adj(a,d,y)$ is not differentiable at that point.
+
+% The marginal value of durables:
+% \begin{align*}
+%     V_d(y,d,a) &= adj(a,d,y) V_d^{adj}(y,d,a) + (1-adj(a,d,y)) V_d^{noadj}(y,d,a) \\
+%     &=adj(a,d,y)(1-\delta)\frac{\psi}{c^{adj}(y,d,a)} + (1-adj(a,d,y))(1-\delta)[\frac{(1-\psi)}{(1-\delta) d}+\beta E_y V_d(y,(1-\delta) d,a^{noadj}(y,d,a))]   
+% \end{align*}
+
+
+
+\section{Local EGM Approach with Match Quality Shock}
+
+\subsection{Environment}
+
+
+Budget constraint if adjusting
+\begin{align*}
+    \tilde{a}'+c'+ p d' + v \bar{p} d' = (1+r)\tilde{a} + (1-\delta)(1-f)pd + y
+\end{align*}
+
+Budget constraint if not adjusting with $d'= (1-\delta(1-\chi))d$
+\begin{align*}
+    \tilde{a}'+c' + v \bar{p} d' + \chi \delta pd = (1+r)\tilde{a} + y
+\end{align*}
+
+Borrowing constraint
+\begin{align*}
+    \tilde{a}'\ge - \lambda \bar{p} (1-\delta)(1-f) d'
+\end{align*}
+
+Define $a \equiv \tilde{a} + \lambda \bar{p} (1-\delta)(1-f) d$. Then the budget constraint if adjusting is
+\begin{align*}
+    a' - \lambda \bar{p} d'+c'+ p d' + v \bar{p} d' &= (1+r)a - (1+r)\lambda  \bar{p} (1-\delta)(1-f) d + (1-\delta)(1-f)pd + y \\
+    a'+c'+ \left[p + v \bar{p} -  \lambda \bar{p}(1-\delta)(1-f)\right] d' &= (1+r)a  + [(1-\delta)(1-f)p - (1+r)\lambda \bar{p} (1-\delta)(1-f)]d + y
+\end{align*}
+and if not adjusting
+\begin{align*}
+    a' - \lambda \bar{p} (1-\delta)(1-f) d' +c' + v(1-\delta(1-\chi))\bar{p}d + \chi \delta pd &= (1+r)(a - \lambda  \bar{p} (1-\delta)(1-f) d) + y \\
+    a'+c' + \left[v\bar{p} + \frac{\chi \delta}{(1-\delta(1-\chi))} p - \lambda \bar{p} (1-\delta)(1-f) \right] d' &= (1+r)a - (1+r)\lambda \bar{p} (1-\delta)(1-f) d) + y 
+    % \frac{\tilde{a}'}{(1+r)}+c'+ \left(p + v -  \frac{\lambda \bar{p}}{(1+r)}\right) d' &= \tilde{a}  + [(1-\delta)(1-f)p - \lambda \bar{p}]d + y
+\end{align*}
+and the borrowing constraint is
+\begin{align*}
+    a'\ge 0
+\end{align*}
+
+% Value function
+% \begin{align*}
+%     V(y,d,a) = \max\{&\max_{c'+d'+\frac{a'}{1+r}\le a+(1-\delta)(1-f)d+y}[\psi \ln c' +(1-\psi) \ln d' + \beta E_y V(y',d',a')] , \\
+%     & \max_{c'+a'\le a+y}[\psi \ln c' +(1-\psi) \ln (1-\delta)d + \beta E_y V(y',(1-\delta)d,a')]\}
+% \end{align*}
+
+\subsection{Value functions}
+
+Value function is max of the value function if adjust and the value function if not adjusted, 
+modulated by idiosyncratic match-quality shocks:
+\begin{align*}
+    V(y,d,a,\epsilon) = \max\{V^{adj}(y,d,a) + \epsilon^{adj}, V^{noadj}(y,d,a) + \epsilon^{noadj} \}
+\end{align*}
+$\epsilon^i$ are drawn from a Gumbell distribution with standard deviation 
+$\sigma_V\frac{\pi}{\sqrt{6}}$,\footnote{https://eml.berkeley.edu/choice2/ch3.pdf}.
+
+% 
+
+Define the post-adjustment value function as
+\begin{align*}
+    W(y,d',a') \equiv E_y \tilde{V}(y',d',a')
+\end{align*}
+
+The individual value functions are [UPDATE CONSTRAINTS]
+\begin{align*}
+    V^{adj}(y,d,a)&=\max_{c'+(1+v)d'+\frac{a'}{1+r}\le a+(1-\delta)(1-f)d+y}[\psi \ln c' +(1-\psi) \ln d' + W(y,d',a'), \\
+    V^{noadj}(y,d,a)&=\max_{c'+v(1-\delta)d+\frac{a'}{1+r}\le a+y}[\psi \ln c' +(1-\psi) \ln (1-\delta)d + W(y,(1-\delta)d,a')]\}
+\end{align*}
+
+\subsection{Adjustment Probabilities and Expected Values}
+
+The probability of adjustment is
+\begin{align*}
+    adjust(y,d,a) = \frac{\exp\{(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V\}}{1+\exp\{(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V\}}
+\end{align*}
+The distribution of $V$ is
+\begin{align*}
+    Prob[V(y,d,a,\epsilon)\le x] &= Prob[\epsilon^{adj}\le x - V^{adj}(y,d,a)]Prob[\epsilon^{noadj}\le x - V^{noadj}(y,d,a)]\\
+    &= \exp\{-\exp[ -(x-V^{adj}(y,d,a))/\sigma_V]\}\exp\{-\exp[- (x-V^{noadj}(y,d,a))/\sigma_V]\} \\
+    &= \exp\{-\exp[ -(x-V^{adj}(y,d,a))/\sigma_V]-\exp[- (x-V^{noadj}(y,d,a))/\sigma_V]\} \\
+    &= \exp\{-\exp[ -x/\sigma_V](\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V])\} \\
+    &= \exp\{-\exp[ -(x - \sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\})/\sigma_V]\} 
+\end{align*}
+
+The expected value is,
+\begin{align*}
+    \tilde{V}(y,d,a) &\equiv E_{\epsilon} V(y,d,a,\epsilon) \\
+    &=\sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\} + \sigma_V\gamma \\
+    &=\sigma_V\log (\exp[ V^{noadj}(y,d,a)/\sigma_V]\{1+\exp[(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V]\}) + \sigma_V\gamma \\
+    &=\sigma_V\{ V^{noadj}(y,d,a)/\sigma_V + \log\{1+\exp[(V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V]\} + \sigma_V\gamma \\
+    &=\sigma_V\{ V^{noadj}(y,d,a)/\sigma_V + (V^{adj}(y,d,a)-V^{noadj}(y,d,a))/\sigma_V - \log adjust(y,d,a) \} + \sigma_V\gamma\\
+    &=V^{adj}(y,d,a) - \sigma_V  \log adjust(y,d,a) + \sigma_V\gamma \\
+    &=V^{noadj}(y,d,a) - \sigma_V  \log noadjust(y,d,a) + \sigma_V\gamma 
+\end{align*}
+where $\gamma\approx 0.5772$ is the Euler-Mascheroni constant. Note that if $\sigma_V\rightarrow0$, then
+\begin{align*}
+    \tilde{V}(y,d,a) &= \max\{V^{adj}(y,d,a), V^{noadj}(y,d,a) \} 
+\end{align*}
+
+\subsection{Marginal Utility}
+
+Simple formulas for marginal utility
+\begin{align*}
+    \tilde{V}_a(y,d,a) &= \frac{\partial}{\partial a} \sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\}  \\
+    &=  \sigma_V\frac{\exp[ V^{adj}(y,d,a)/\sigma_V]V_a^{adj}(y,d,a)/\sigma_V + \exp[ V^{noadj}(y,d,a)/\sigma_V]V_a^{noadj}(y,d,a)/\sigma_V}{\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\}}  \\
+    &= adjust(y,d,a) V_a^{adj}(y,d,a) + (1-adjust(y,d,a)) V^{noadj}(y,d,a)   
+\end{align*}
+
+\begin{align*}
+    \tilde{V}_d(y,d,a) &= \frac{\partial}{\partial d} \sigma_V\log\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\}  \\
+    &=  \sigma_V\frac{\exp[ V^{adj}(y,d,a)/\sigma_V]V_d^{adj}(y,d,a)/\sigma_V + \exp[ V^{noadj}(y,d,a)/\sigma_V]V_d^{noadj}(y,d,a)/\sigma_V}{\{\exp[ V^{adj}(y,d,a)/\sigma_V]+\exp[V^{noadj}(y,d,a)/\sigma_V]\}}  \\
+    &= adjust(y,d,a) V_d^{adj}(y,d,a) + (1-adjust(y,d,a)) V_d^{noadj}(y,d,a)   
+\end{align*}
+
+
+
+
+\subsection{No-adjuster problem}
+
+Break up into sequential problem of choosing $c'$, $a'$ given $d'$. Then choose $d'$.
+
+For given choice of $d'$:
+\begin{align*}
+    V^{noadj}(y,n,m) &= \max_{c',a'}[\psi \ln c' +(1-\psi) \ln d' + \beta W(y',d',a')] \\
+    d' &= n \\
+    a' &= \left[m - c'    \right] \\
+    a' &\ge 0
+\end{align*}
+where $m = \tilde{m} + \lambda \bar{p} n \ge 0$
+
+First order conditions:
+\begin{align*}
+    V_m^{noadj}(y,n,m) &= \beta W_a(y',d',a') + \zeta \\
+    V_n^{noadj}(y,n,m) &=\frac{(1-\psi)}{d'} + \beta W_d(y',d',a') \\
+    % & - \left(v + \frac{\chi \delta}{1-\delta(1-\chi)}p  \right)(\beta  W_a(y',d',a') + \zeta ) \\
+    \frac{\psi}{c'} &= \beta W_a(y',d',a')  + \zeta 
+\end{align*}
+
+Use last FOC to calculate EGM solutions. 
+First, assume borrowing constraint is not binding and solve for $c'$ in 
+\begin{align*}
+    \frac{\psi}{c'} &= \beta  W_a(y',d',a') 
+\end{align*}
+Then calculate implied cash on hand
+\begin{align*}
+    m = c' + a' %+ \left(v + \frac{\chi \delta}{1-\delta(1-\chi)}p   \right)d' 
+\end{align*}
+Interpolate the decision rules from the $x$ grid onto the grid for $a$.
+Then check if implied solution for $a'$ violates the borrowing constraint. 
+If so implement borrowing constrained solution $a'=0$ and $c' = m$.
+Combining the two solutions yields the policy functions
+\begin{align*}
+    c^{noadj}(y,n,m), a^{noadj}(y,n,m)
+\end{align*}
+
+The no adjustment solutions use $n=(1-\delta(1-\chi))d$ and $m=(1+r)a - v [1-\delta(1-\chi)] d - \chi \delta p d -\lambda (1-\delta)(1-f) \bar{p} [r + \delta(1-\chi)] d +y$
+\begin{align*}
+    &c^{noadj}(y,(1-\delta(1-\chi))d,m) \\
+    &a^{noadj}(y,(1-\delta(1-\chi))d,m) \\
+    &d^{noadj}=(1-\delta(1-\chi))d
+\end{align*}
+and a value function
+\begin{align*}
+    V^{noadj}(y,d,a) &= \psi \ln c^{noadj}(y,d,a) +(1-\psi) \ln (1-\delta(1-\chi))d + \beta W (y',(1-\delta(1-\chi))d,a^{noadj}(y,d,a)) \\
+\end{align*}
+
+Marginal values are
+\begin{align*}
+    V_a^{noadj}(y,d,a)&=(1+r)\frac{\psi}{c^{noadj}(y,d,a)} \\
+    V_d^{noadj}(y,d,a)&=\frac{1-\psi}{d} - \left(v\bar{p} + \frac{\chi \delta}{1-\delta(1-\chi)}p + \frac{ r+\delta(1-\chi) }{(1-\delta(1-\chi))}\lambda (1-\delta)(1-f) \bar{p} \right)(1-\delta(1-\chi))\frac{V_a^{noadj}(y,d,a)}{1+r} \\
+    & + \beta (1-\delta(1-\chi)) W_d(y',(1-\delta(1-\chi))d,a^{noadj}(a,d,y))
+\end{align*}
+where we use $V_d = [1-\delta(1-\chi)]V_n - \{v [1-\delta(1-\chi)]\bar{p} + \chi \delta p +\lambda (1-\delta)(1-f) \bar{p} [r + \delta(1-\chi)]\} V_m $
+
+% \begin{align*}
+%     V^{adj}&=\frac{\psi}{c^{adj}(f,y,d,a)} + (1-\tilde{adj}(a,d,y)) \frac{\psi}{c^{noadj}(y,d,a)} \\
+%     % &=\frac{\psi}{c'(y,d,a)} 
+% \end{align*}
+
+\subsection{Adjuster problem}
+
+\begin{align*}
+    V^{adj}(y,x) &= \max_{d'} V^{noadj}(y,d',m') \\
+    m' &= x+y-pd' - v\bar{p}d' + \lambda (1-\delta)(1-f) \bar{p}d'  \\
+    m' &\ge 0
+\end{align*}
+
+FOC
+\begin{align*}
+    V_x^{adj}(y,x) &= V_m^{noadj}(y,d',m') + \kappa \\
+    V_n^{noadj}(y,d',m') &= \left(p+ v\bar{p} - \lambda (1-\delta)(1-f)\bar{p} \right) V_m^{noadj}(y,d',m') + \kappa
+\end{align*}
+
+Constraint will never be binding so $\kappa=0$. 
+Combine with keep FOC to get
+\begin{align*}
+    % \left(p- \frac{\chi \delta}{1-\delta(1-\chi)}p-\lambda\bar{p}\right)\frac{\psi}{c^{noadj}(y,d',m')} &=   \frac{1-\psi}{d'}  - \left(v + \frac{\chi \delta}{1-\delta(1-\chi)}p   \right) \frac{V_a^{noadj}(y,d,a)}{1+r} \\
+    % & + \beta W_d(y,d',a')  \\
+    \left(p + v\bar{p}-  \lambda(1-\delta)(1-f)\bar{p}\right)\frac{\psi}{c^{noadj}(y,d',m')} &=   \frac{1-\psi}{d'}  + \beta W_d(y,d',a') 
+\end{align*}
+Maintenance terms cancel out because no maintenance is paid upon adjustment.
+
+This yields adjustment solutions
+\begin{align*}
+    c^{adj}(y,x), a^{adj}(y,x), d^{adj}(y,x)
+\end{align*}
+and a value function
+\begin{align*}
+    V^{adj}(y,x) &= \psi \ln c^{adj}(y,x) +(1-\psi) \ln d^{adj}(y,x) + \beta W(y',d^{adj}(y,x),a^{adj}(y,x)) 
+\end{align*}
+
+We interpolate onto the existing grid using $x=a+(1-\delta)(1-f)pd - \lambda(1-\delta)(1-f)\bar{p} d$
+\begin{align*}
+    c^{adj}(y,d,a), a^{adj}(y,d,a), d^{adj}(y,d,a)
+\end{align*}
+and value function
+\begin{align*}
+    V^{adj}(y,d,a) &= \psi \ln c^{adj}(a,d,y) +(1-\psi) \ln d^{adj}(a,d,y) + \beta W(y',d^{adj}(a,d,y),a^{adj}(a,d,y)) 
+\end{align*}
+
+Marginal values are
+\begin{align*}
+    V_a^{adj}(y,d,a)&=(1+r)\frac{\psi}{c^{adj}(y,d,a)} \\
+    V_d^{adj}(y,d,a)&=\frac{[(1-\delta)(1-f) p - \lambda(1-\delta)(1-f)\bar{p}]}{(1+r)} V_a^{adj}(y,d,a)
+\end{align*}
+
+
+\subsection{Combined Problem}
+
+Get policy functions by combining adjust and no-adjust solutions.
+\begin{align*}
+    c'(y,d,a) &= adjust(a,d,y)c^{adj}(a,d,y) + (1-adjust(a,d,y))c^{noadj}(a,d,y) \\
+    a'(y,d,a) &= adjust(a,d,y)a^{adj}(a,d,y) + (1-adjust(a,d,y))a^{noadj}(a,d,y) \\
+    d'(y,d,a) &= adjust(a,d,y)d^{adj}(a,d,y) + (1-adjust(a,d,y))d^{noadj}(a,d,y) 
+\end{align*}
+
+% We need to update the derivatives of the value functions. The marginal value of 
+% assets:
+% \begin{align*}
+%     V^{adj}&=\frac{\psi}{c^{adj}(f,y,d,a)} + (1-\tilde{adj}(a,d,y)) \frac{\psi}{c^{noadj}(y,d,a)} \\
+%     % &=\frac{\psi}{c'(y,d,a)} 
+% \end{align*}
+% I do not think this object is well defined at the adjustment threshold since there
+% is a kink in the value function. I.e., $adj(f,a,d,y)$ is not differentiable at that point.
+% But value functions are also the same, so does it matter?
+
+% The marginal value of durables:
+% \begin{align*}
+%     \tilde{V}_d(y,d,a) &= E_f adj(f,a,d,y) V_d^{adj}(f,y,d,a) + (1-\tilde{adj}(a,d,y)) V_d^{noadj}(y,d,a) \\
+%     &=E_f adj(f,a,d,y)(1-\delta)\frac{\psi}{c^{adj}(f,y,d,a)} + (1-\tilde{adj}(a,d,y))[\frac{(1-\psi)}{(1-\delta) d}+\beta E_y \tilde{V}_d(y,(1-\delta) d,a+y-c^{noadj}(y,d,a))]   
+% \end{align*}
+
+% Can I use the fact that $f$ just maps into variation in $d$? So higher $f$ is the same as if you started with smaller $d$.
+
+\end{document}

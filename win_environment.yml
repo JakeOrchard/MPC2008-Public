@@ -1,0 +1,21 @@
+name: MPC
+channels:
+  - defaults
+dependencies:
+  - pip=22.1.2
+  - python=3.7.13
+  - pip:
+    - matplotlib==3.5.2
+    - numba==0.55.2
+    - numpy==1.21.6
+    - openpyxl==3.0.0
+    - pandas==1.3.2
+    - pandas-datareader==0.9.0
+    - pyarrow==4.0.0
+    - pyyaml==5.4.1
+    - requests==2.22.0
+    - scipy==1.7.3
+    - statsmodels==0.13.2
+    - wget==3.2
+    - graphviz==0.20
+prefix: C:\ProgramData\Anaconda3\envs\MPC

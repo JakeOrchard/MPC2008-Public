@@ -1,0 +1,30 @@
+\section{Data}
+
+Almost always we will work with some data. This section details the procedures for documenting data. 
+
+\subsection{Data Collection}
+
+This step usually requires some documentation. It will generally not be enough to look at a dataset to understand where it is coming from.
+
+If the data is automatically downloaded from a server, then no further documentation is needed. Our code files executes the steps and thereby do the documentation for us. Because documentation is straightforward, automatic downloads we prefer them over other methods when available. When possible, the documentation for the data should be automatically downloaded too.
+
+Sometimes we cannot automatically download data. Either the data is sent to us, or we can obtain it online but not through automated steps. In this case, the data should be stored in a separate folder (e.g., ``manualdata''). The steps by which these data can be obtained should be stored in a separate text file called ``stepstogetdata.txt.'' For example:
+\begin{lstlisting}[language=bash]
+1. Go to website https://cooldata.com/nicedataset.html
+2. Click the download button and agree to terms and conditions.
+Valid as of July, 8, 2019.
+\end{lstlisting}
+The steps should be clear and simple enough that any graduate student can execute them. The date is for our records in case the procedure for accessing the data changes.
+
+\subsection{Organizing Data}
+
+There are two key principles for organizing and working with data:
+
+\begin{itemize}
+	\item Store cleaned data in tables with unique, non-missing keys.
+	\item Keep data normalized as far into your code pipeline as you can.
+\end{itemize}
+
+ \href{https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf}{Gentzkow and Shapiro, Chapter 5 (``Keys'')} describe these principles in detail. We will not repeat their excellent discussion here.
+ 
+From experience, most data processing errors occur during the merging process. Hence it is a good idea to delay merging as far into the pipeline as possible. When you do merge, you should check that the merge performs as expected. For example, you can check that the number of observations before the merge and after the merge is the same using an \texttt{assert} test.

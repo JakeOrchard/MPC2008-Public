@@ -1,0 +1,237 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\section{PPY Growth Model}
+
+\subsection{Households}
+
+Each period households remain with probability $\omega$ and a new cohort of size $1-\omega$ is born.
+
+Households of cohort $i$ have utility function over the nondurable good $C_{it}$ and the durable good $D_{it}$.
+\begin{align*}
+	\sum_{s=0}^{\infty}(\beta\omega)^s [ u(C_{i,t+s}) + v(C_{i,t+s}) ]
+\end{align*}
+
+The household budget constraint for a household of cohort $i$ is
+\begin{align*}
+    Q_t S_{it}+C_{it}+R_{t}^d D_{it}   = \frac{Q_{t}+Div_t}{\omega} S_{i,t-1}  + H_{t}  - T_{t} - M
+\end{align*}
+For the cohort born at $t$ the budget constraint is
+\begin{align*}
+    Q_t S_{tt}+C_{tt}+R_{t}^d D_{tt}    = H_{t}  - T_{t} + \frac{\omega}{1-\omega} M
+\end{align*}
+% we set $ M_t = \frac{R_t(1-\omega)}{\omega} W $ to ensure that all cohorts have the same wealth and consumption in steady state.
+
+Define the financial return as
+\begin{align*}
+    R_t^s \equiv \frac{Q_{t}+D_t}{Q_{t-1}}
+\end{align*}
+
+% The aggregate budget constraint is
+% \begin{align*}
+%     Q_t+C_t+R_{t}^d D_{t} = R_t^s Q_{t-1}+ H_t - T_t
+% \end{align*}
+
+The intertemporal budget constraint for a surviving household $i<t$ is:
+\begin{align*}
+	\sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s} [C_{i,t+s} + R_{t+s}^d D_{i,t+s}] & = \frac{R_{t}^s}{\omega}Q_{t-1}S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(H_{t+s}  - T_{t+s} - M)
+\end{align*}
+
+The intertemporal budget constraint for a newborn household is
+\begin{align*}
+	\sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s} [C_{t,t+s} + R_{t+s}^d D_{t,t+s}]  & = \frac{1}{1-\omega} M + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(H_{t+s}  - T_{t+s} - M)
+\end{align*}
+
+% The difference in consumption for newborn and surviving households is given by
+% \begin{align*}
+%     W_t^{\text{survivor}} - W_t^{\text{newborn}} + C_t^{\text{survivor}} - C_t^{\text{newborn}} = \frac{R_t}{\omega} W_{t-1}^{\text{survivor}} - \frac{R_t}{\omega} W
+% \end{align*}
+
+% For a newborn household we implicitely have $W_{t,t-1}=W_{t-1}$ given the transfer scheme.
+
+The first order condition for the household are:
+%\begin{align*}
+%	u'(C_{it})=&\beta  R_{t} u'(C_{i,t+1}) \\
+%	p_t^d u'(C_{it})&= w'(D_{it}) + \beta (1-\delta^d) u'(C_{i,t+1})
+%\end{align*}
+%
+%Combining the FOC, we obtain a static relationship between the durable stock and nondurable consumption,
+\begin{align*}
+	u'(C_{it})=&\beta  R_{t+1}^s u'(C_{i,t+1}) \\
+    u'(C_{it})R_{t}^d=&v'(D_{it}) \\
+\end{align*}
+% Note: t+1 variables already condition on survival
+
+Assume CRRA utility functions, we get
+\begin{align*}
+	C_{it} &= (\beta R_{t+1}^s)^{-\sigma}C_{i,t+1} \\
+    D_{it} &= \psi^{\sigma^d}(R_{t}^d)^{-\sigma^d}C_{it}^{\frac{\sigma^d}{\sigma}} 
+\end{align*}
+Note: $C_{i,t+1}$ is for a surviving household so does not aggregate.
+Note 2: Policy function for D must be non-linear in $C$ so that we get
+relative MPCs that differ from aggregate consumption shares.
+
+We assume an arbitrage relationship with bonds:
+\begin{align*}
+    R_{t+k}^s = R_{t+k},\qquad \forall k\ge 1
+\end{align*}
+
+% Plug into ITBC:
+% \begin{align*}
+% 	\left[\sum_{s=0}^{\infty}\frac{(\beta^{\sigma}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma}}\right]&C_{it}+\psi^{\sigma^d}  \sum_{s=0}^{\infty}\frac{(\beta^{\sigma^d}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma^d}}\left(R_t^d + \eta\right)^{1-\sigma^d}   C_{it}^{\frac{\sigma^d}{\sigma}} \\
+% 	& = \frac{R_{t}^s}{\omega}Q_{t-1} S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(W_{t+s}H_{i,t+s} - T_{i,t+s})
+% \end{align*}
+
+Aggregate variables are 
+\begin{align*}
+	X_t = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i}X_{i,t}
+\end{align*}
+
+Aggregate Euler equation:
+\begin{align*}
+    C_{t} &= (\beta R_{t+1}^s)^{-\sigma}C_{i<t+1,t+1} \\
+    &=(\beta R_{t+1}^s)^{-\sigma}C_{t+1} +(\beta R_{t+1}^s)^{-\sigma} (1-\omega)(C_{i<t+1,t+1}-C_{t+1,t+1}) \\
+\end{align*}
+
+Define average discount factor as
+\begin{align*}
+	\Lambda_{t,t+s} = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i} \beta \frac{u'(C_{i,t+1})}{u'(C_{i,t})}
+\end{align*}
+which satisfies
+\begin{align*}
+	\Lambda_{t,t+s}\prod_{k=1}^{s}R_{t+k}^s  = 1,\qquad \forall s\ge 0
+\end{align*}
+
+Aggregate budget constraint for all cohorts:
+\begin{align*}
+    Q_t = R_t^s Q_{t-1} + H_t - T_t - C_t - R_t^d D_t
+\end{align*}
+This is the evolution of aggregate financial wealth.
+
+From intertemporal budget constraint assuming CRRA:
+\begin{align*}
+	\left\{C_{i<t,t}\left[\sum_{s=0}^{\infty}(\beta\omega)^s \Lambda_{t,t+s}^{1-\sigma}\right] + \psi^{\sigma^d}\left(\sum_{i<t} \omega^{t-1-i} C_{i,t}^{\frac{\sigma^d}{\sigma}} \right) \left[\sum_{s=0}^{\infty}(\beta\omega)^s (\Lambda_{t,t+s} R_{t+s}^d )^{1-\sigma^d}\right]  \right\}&= \frac{R_{t}}{\omega} W_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s}) \\
+    \left\{C_{tt}\left[\sum_{s=0}^{\infty}(\beta\omega)^s \Lambda_{t,t+s}^{1-\sigma}\right] + \psi^{\sigma^d} C_{tt}^{\frac{\sigma^d}{\sigma}} \left[\sum_{s=0}^{\infty}(\beta\omega)^s (\Lambda_{t,t+s} R_{t+s}^d )^{1-\sigma^d}\right]  \right\}&= \frac{M_{t}}{1-\omega} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s})
+\end{align*}
+
+Define
+\begin{align*}
+    mpc_t^{-1} &\equiv 1 + \beta^{\sigma}\omega \Lambda_{t,t+1}^{1-\sigma}mpc_{t+1}^{-1} \\
+    mpd_t^{-1} &\equiv \psi^{\sigma^d}(R_{t}^d)^{1-\sigma^d} + \beta^{\sigma^d}\omega \Lambda_{t,t+1}^{1-\sigma^d}mpd_{t+1}^{-1} \\
+\end{align*}
+
+
+\begin{align*}
+	\left\{C_{i<t,t} mpc_t^{-1} + \left(\sum_{i<t} \omega^{t-1-i} C_{i,t}^{\frac{\sigma^d}{\sigma}} \right) mpd_t^{-1}  \right\}&= \frac{R_{t}}{\omega} W_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s}) \\
+    \left\{C_{tt} mpc_t^{-1} +   C_{tt}^{\frac{\sigma^d}{\sigma}} mpd_t^{-1} \right\}&= \frac{M_{t}}{1-\omega} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s})
+\end{align*}
+
+\begin{align*}
+	\left\{C_{i<t,t} mpc_t^{-1} + \psi^{-\sigma^d} D_{i<t,t}(R_{t}^d)^{\sigma^d} mpd_t^{-1}  \right\}&= \frac{R_{t}}{\omega} W_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s}) \\
+    \left\{C_{tt} mpc_t^{-1} + \psi^{-\sigma^d}  D_{t,t}(R_{t}^d)^{\sigma^d} mpd_t^{-1} \right\}&= \frac{M_{t}}{1-\omega} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s})
+\end{align*}
+
+we get a difference:
+\begin{align*}
+    mpc_t^{-1}(C_{i<t,t} - C_{t,t}) + (R_{t}^d)^{-\sigma^d} mpd_t^{-1}(D_{i<t,t} - D_{t,t}) = \frac{R_{t}}{\omega} W_{t-1} - \frac{M_{t}}{1-\omega}
+\end{align*}
+
+Need to solve for relative nondurable consumption $C_{i<t,t} - C_{t,t}$ so it can be used
+in the Euler equation
+\begin{align*}
+    (D_{i<t,t} - D_{t,t})(R_{t}^d)^{\sigma^d} &= \sum_{i<t} \omega^{t-1-i} C_{i,t}^{\frac{\sigma^d}{\sigma}} - C_{tt}^{\frac{\sigma^d}{\sigma}} \\
+    &\approx  \frac{\sigma^d}{\sigma}\left[\sum_{i<t} \omega^{t-1-i} C_{t-i}^{\frac{\sigma^d}{\sigma}-1}(C_{it} - C_{t-i}) - C_{0}^{\frac{\sigma^d}{\sigma}-1}(C_{tt} - C_{0}) \right] \\
+    &=\frac{\sigma^d}{\sigma}\left[\sum_{i<t} \omega^{t-1-i} C_{t-i}^{\frac{\sigma^d}{\sigma}-1}(C_{it} - C_{t-i}) - C_{0}^{\frac{\sigma^d}{\sigma}-1}(C_{tt} - C_{0}) \right] \\
+\end{align*}
+If steady state levels of consumption are the same, then up to a first order
+\begin{align*}
+    (D_{i<t,t} - D_{t,t})(R_{t}^d)^{\sigma^d}\psi^{-\sigma^d}  &\approx  \frac{\sigma^d}{\sigma}C^{\frac{\sigma^d}{\sigma}-1} (C_{i<t,t} - C_{tt}) 
+\end{align*}
+And we get an expression for the consumption difference:
+\begin{align*}
+	C_{i<t,t} - C_{t,t} & = \left[ mpc_t^{-1} +   \frac{\sigma^d}{\sigma}C^{\frac{\sigma^d}{\sigma}-1} mpd_t^{-1}  \right]^{-1} \frac{R_{t}}{\omega}(  W_{t-1} - W )
+    % \left\{C_{tt} mpc_t^{-1} +  D_{t,t}(R_{t}^d)^{\sigma^d} mpd_t^{-1} \right\}&= \frac{M_{t}}{1-\omega} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s})
+\end{align*}
+
+
+
+From the Euler equation:
+\begin{align*}
+    C_{t}&=(\beta R_{t+1})^{-\sigma}C_{t+1} +(\beta R_{t+1})^{-\sigma} (1-\omega)\left[ mpc_{t+1}^{-1} +   \frac{\sigma^d}{\sigma}C^{\frac{\sigma^d}{\sigma}-1} mpd_{t+1}^{-1}  \right]^{-1}\frac{R_{t+1}}{\omega}(W_{t}-W) \\
+\end{align*}
+
+% Like bond in the utility function. Define 
+% \begin{align*}
+%     mpc_t^{-1} \equiv 1 + \beta\omega \Lambda_{t,t+1}^{1-\sigma}mpc_{t+1}^{-1} 
+% \end{align*}
+% to get
+% \begin{align*}
+%     C_{t}&=(\beta R_{t+1})^{-\sigma}C_{t+1} +(\beta R_{t+1})^{-\sigma} (1-\omega)mpc_t \frac{R_{t+1}}{\omega}(W_{t}-W) \\
+% \end{align*}
+
+% With log utility
+% \begin{align*}
+%     C_{t}&=(\beta R_{t+1})^{-1}C_{t+1} + (1-\omega)(1-\beta\omega) \frac{R}{\omega}(W_{t}-W) \\
+% \end{align*}
+
+\section{Government}
+
+Government budget constraint
+\begin{align*}
+    B_t = R_t B_{t-1} - T_t
+\end{align*}
+
+\section{Goods Production}
+
+For now uses labor.
+\begin{align*}
+    Y_t = H_t
+\end{align*}
+
+There is DRS in durable goods production so
+\begin{align*}
+    p_t^d = \left(\frac{X_t}{X}\right)^{\zeta}
+\end{align*}
+
+\section{Durable Rentals}
+
+Profit maximization for durable rental firm:
+\begin{align*}
+    &\max \sum_{s=0}{\infty}\Lambda_{t,t+s}[(R_{t+s}^d - \eta) D_t + X_t] \\
+    &D_t = (1-\delta^d) D_{t-1}+ \frac{X_t}{p_t^d}
+\end{align*}
+
+FOC is
+\begin{align*}
+    R_{t}^d = p_t^d + \eta - \frac{(1-\delta^d)p_{t+1}^d}{R_{t+1}}
+\end{align*}
+
+\section{Model without capital}
+
+\subsection{Market clearing}
+\begin{align*}
+    Y_t &= H_t = C_t + X_t + \eta D_t \\
+    D_t &= (1 - \delta^d) D_{t-1} + X_t \\
+    W_t &= B_t + \frac{(1 - \delta^d)}{R_{t+1}}D_t \\
+    R_{t} W_{t-1} &= R_{t}B_{t-1} + (1 - \delta^d) D_{t-1}
+\end{align*}
+
+\subsection{Steady State}
+\begin{align*}
+    Y &= H = C \\
+    W &= B = T = 0 \\
+    R &= \beta^{-1} \\
+    R^d &= 1 + \eta - \beta(1-\delta^d) \\
+    % C &= Y - s_x
+\end{align*}
+
+
+\end{document}

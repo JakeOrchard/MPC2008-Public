@@ -1,0 +1,26 @@
+\begin{table}[!t] \centering \sisetup{table-format=1.2} \def\sym X 1{\ifmmode^{ X 1}\else\(^{ X 1}\)\fi}
+\small \caption{Monthly: Household Motor Vehicle and Parts Spending Response to Rebate }
+\begin{tabularx}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{2}{S}}
+\toprule &  \multicolumn{1}{c}{Full Sample} &  \multicolumn{1}{c}{Rebate Only Sample} \\ 
+ \cmidrule(l{.75em}){2-2} \cmidrule(l{.75em}){3-3}
+                    &\multicolumn{1}{L}{(1)}        &\multicolumn{1}{L}{(2)}        \\
+\hline
+\\
+Lead 1 Rebate Indicator&      132.87$^{**}$ &      110.68$^{*}$  \\
+                    &     (59.46)        &     (66.27)        \\
+Rebate Indicator    &       75.40        &       54.56        \\
+                    &     (66.94)        &     (78.28)        \\
+Lag 1 Rebate Indicator&       39.98        &       30.06        \\
+                    &     (65.82)        &     (77.13)        \\
+Lag 2 Rebate Indicator&       75.68        &       72.06        \\
+                    &     (58.43)        &     (64.68)        \\
+Lag 3 Rebate Indicator&       33.53        &       26.38        \\
+                    &     (60.93)        &     (69.46)        \\
+Lag Total Expenditure&        0.01        &        0.03$^{*}$  \\
+                    &      (0.01)        &      (0.01)        \\
+Lag Motor Vehicle   &       -1.16$^{***}$&       -1.15$^{***}$\\
+                    &      (0.01)        &      (0.02)        \\
+\hline
+Income Decile FE    &\multicolumn{1}{c}{Yes}        &\multicolumn{1}{c}{Yes}        \\
+Observations        &\multicolumn{1}{c}{44,996}        &\multicolumn{1}{c}{26,418}        \\
+\hline\hline \end{tabularx} \begin{minipage}{\hsize} \rule{0pt}{9pt} \footnotesize Notes: The dependent variable is the change in motor vehicles and parts expenditure.    Regressions include month fixed effects, and household level controls for age, change in number of adults, and change in number of children. The rebate coefficients are the weighted average of the interaction between rebate month cohort and the rebate indicators with weights computed following Sun and Abraham (2021). Standard errors, in parentheses, are clustered at the household level: $ \:^{*}\:p<0.1,\:\:^{**}\:p<0.05,\:\:^{***}\:p<0.01 $.  \end{minipage} \label{tab:Table_AEMonthly} \end{table}

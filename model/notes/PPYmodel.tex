@@ -1,0 +1,438 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\section{PPY NK Model}
+
+\subsection{Households}
+
+Each period households remain with probability $\omega$ and a new cohort of size $1-\omega$ is born.
+
+Households of cohort $i$ have utility function over the nondurable good $C_{it}$ and the durable good $D_{it}$.
+\begin{align*}
+	\sum_{s=0}^{\infty}(\beta\omega)^s[u(C_{i,t+s}) + w(D_{i,t+s}) - v(H_{i,t+s})]
+\end{align*}
+
+The household budget constraint for a household of cohort $i$ is
+\begin{align*}
+    Q_t S_{it}+C_{it}+ (R_t^d + \eta) D_{it}  = \frac{R_{t}^s}{\omega} Q_{t-1} S_{i,t-1}  + W_tH_{it}  - T_{it}
+\end{align*}
+where $S_{it}$ are shares in the mutual fund that are valued at $Q_t$ and pay a real return $R_t^s=\frac{Q_t+V_t}{Q_{t-1}}$, $R_t^d$ is the rental rate of the durable and $\eta$ its operating cost, $W_tH_{it}$ is real wage income, and $T_{it}$ are taxes net of transfers.
+
+The intertemporal budget constraint is:
+\begin{align*}
+	\sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}&\left[C_{i,t+s}+ (R_{t+s}^d + \eta) D_{i,t+s}  \right] \\
+	& = \frac{R_{t}^s}{\omega}Q_{t-1} S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(W_{t+s}H_{i,t+s}  - T_{i,t+s})
+\end{align*}
+
+The first order condition for the household are:
+%\begin{align*}
+%	u'(C_{it})=&\beta  R_{t} u'(C_{i,t+1}) \\
+%	p_t^d u'(C_{it})&= w'(D_{it}) + \beta (1-\delta^d) u'(C_{i,t+1})
+%\end{align*}
+%
+%Combining the FOC, we obtain a static relationship between the durable stock and nondurable consumption,
+\begin{align*}
+	u'(C_{it})=&\beta  R_{t+1}^s u'(C_{i,t+1}) \\
+	 u'(C_{it})(R_t^d + \eta)&= w'(D_{it})
+\end{align*}
+% Note: t+1 variables already condition on survival
+
+Assume CRRA utility functions, we get
+\begin{align*}
+	C_{it} &= (\beta R_{t+1}^s)^{-\sigma}C_{i,t+1} \\
+	D_{it} &= \psi^{\sigma^d} \left(R_t^d + \eta \right)^{-\sigma^d} C_{it}^{\frac{\sigma^d}{\sigma}}
+\end{align*}
+
+Plug into ITBC:
+\begin{align*}
+	\left[\sum_{s=0}^{\infty}\frac{(\beta^{\sigma}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma}}\right]&C_{it}+\psi^{\sigma^d}  \sum_{s=0}^{\infty}\frac{(\beta^{\sigma^d}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma^d}}\left(R_t^d + \eta\right)^{1-\sigma^d}   C_{it}^{\frac{\sigma^d}{\sigma}} \\
+	& = \frac{R_{t}^s}{\omega}Q_{t-1} S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(W_{t+s}H_{i,t+s} - T_{i,t+s})
+\end{align*}
+
+Aggregate variables are 
+\begin{align*}
+	X_t = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i}X_{i,t}
+\end{align*}
+
+Define average discount factor as
+\begin{align*}
+	\Lambda_{t,t+s} = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i} \beta \frac{u'(C_{i,t+1})}{u'(C_{i,t})}
+\end{align*}
+which satisfies
+\begin{align*}
+	\Lambda_{t,t+s}\prod_{k=1}^{s}R_{t+k}  = 1,\qquad \forall s\ge 0
+\end{align*}
+
+Aggregate intertemporal budget constraint:
+\begin{align*}
+	\sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s} &\left[C_{t+s}+ (R_{t+s}^d + \eta) D_{t+s}  \right]  = R_{t}^s Q_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s})
+\end{align*}
+% \begin{align*}
+% 	\sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s} &\left[C_{t+s}+ R_{t+s}^d D_{t+s}  \right]  = R_{t-1}Q_{t-1}  + S_t
+% \end{align*}
+% where
+% \begin{align*}
+% 	\frac{R_{t-1}}{\omega }Q_{t-1} &\equiv R_{t-1} A_{t-1}   \\
+% 	S_t &\equiv W_{t}S_{t} +\text{Profits}_{t} - T_{t} + \omega \Lambda_{t,t+1}S_{t+1} 
+% \end{align*}
+
+Write aggregate budget constraint recursively:
+% \begin{align*}
+% 	\sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s} &\left[C_{t+s}+ r_{t+s}^d  D_{t+s}  \right]  = \frac{R_{t-1}}{\omega } Q_{t-1}  + S_t \\
+% 	\sum_{s=0}^{\infty}\omega^{s+1} \Lambda_{t,t+s+1} &\left[C_{t+s+1}+ r_{t+s+1}^d D_{t+s+1}  \right]  = Q_{t}  +  \frac{\omega}{R_t} S_{t+1} \\
+% 	 \left[C_{t}+ r_{t}^d D_{t}  \right]&= \frac{R_{t-1}}{\omega } Q_{t-1} + S_t - Q_{t}  - \frac{\omega}{R_t} S_{t+1} \\
+% 	Q_{t}  &= \frac{R_{t-1}}{\omega } Q_{t-1} + \frac{R_t}{\omega} S_t - S_{t+1} - \left[C_{t}+ r_{t}^d D_{t}  \right]  \\
+% 	Q_{t}  &= \frac{R_{t-1}}{\omega } Q_{t-1} +  W_{t+s}H_{t+s} +\text{Profits}_{t+s} - T_{t} - C_{t}- r_{t}^d D_{t}    \\
+% \end{align*}
+\begin{align*}
+	\sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s} &\left[C_{t+s}+ (R_{t+s}^d + \eta)  D_{t+s}  \right]  = R_{t}^s Q_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}) \\
+	\sum_{s=0}^{\infty}\omega^{s+1} \Lambda_{t,t+s+1} &\left[C_{t+s+1}+ (R_{t+s+1}^d + \eta) D_{t+s+1}  \right]  = \omega Q_{t} + \sum_{s=0}^{\infty}\omega^{s+1} \Lambda_{t,t+s+1}(W_{t+s+1}H_{t+s+1} - T_{t+s+1}) \\
+	 C_{t}+ (R_{t}^d + \eta) D_{t}  &= R_{t}^s Q_{t-1} - \omega Q_t + W_{t}H_{t} - T_{t} \\
+	\omega Q_{t}  &= R_{t}^s Q_{t-1}  - C_{t} -  R_{t}^d D_{t} + W_{t}H_{t} - T_{t}  %\\
+	% Q_{t}  &= \frac{R_{t-1}}{\omega } Q_{t-1} +  W_{t+s}H_{t+s} +\text{Profits}_{t+s} - T_{t} - C_{t}- r_{t}^d D_{t}    \\
+\end{align*}
+
+With transfers such that each cohort has equal consumption and we solve the set of conditions
+\begin{align*}
+	u'(C_{t})&=\beta  R_{t} u'(C_{t+1}) \\
+	u'(C_{t})(R_{t}^d + \eta)&= w'(D_{t}) \\
+	\omega Q_{t}  &= R_{t}^s Q_{t-1}  - C_{t} - (R_{t}^d + \eta) D_{t} + W_{t}H_{t} - T_{t} 
+\end{align*}
+
+
+Assume CRRA utility functions, we get
+\begin{align*}
+	C_t&= (\beta  R_{t})^{-\sigma} C_{t+1} \\
+	D_t&=\psi^{\sigma^d} \left[R_{t}^d + \eta \right]^{-\sigma^d} C_t^{\frac{\sigma^d}{\sigma}} \\
+	\omega Q_{t}  &= R_{t}^s Q_{t-1}  - C_{t} -  (R_{t}^d + \eta) D_{t} + W_{t}H_{t} - T_{t} 
+\end{align*}
+
+
+
+
+
+
+\subsection{Wages}
+
+A continuum of unions indexed by $j$ provide differentiated labor services to the final good firm that are subsitutable with elasticity $\epsilon^w$. Each period there is a iid probability $\theta^w$ that the union cannot adjust the contract wage. In this case, wages will adjust by a fraction $\chi^w$ of last periods inflation.
+
+The union imposes the same work hours on optimizing and hand-to-mouth households:
+\begin{align*}
+	H_t^m = H_t^o = H_t
+\end{align*}
+
+The demand for hours from union $j$ at time $t+s$ conditional on having last reset wages at time $t$ is
+\begin{align*}
+	H_{t+s}^d(j) = H_{t+s}^d \left(\frac{W_{t}(j)(\frac{P_{t+s-1}}{P_{t-1}})^{\chi^w} (\frac{P_t}{P_{t+s}})}{W_{t+s}}\right)^{-\epsilon^w} = H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  W_{t}(j)^{-\epsilon^w}
+\end{align*}
+where $P_t$ is the price level at time $t$.
+
+If the union can adjust its wage at time $t$ it picks the optimal wage to maximize the expected discounted utility of the representative household while this wage prevails:
+\begin{align*}
+	\max_{w_t^*} \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}\left[\lambda_{t+s}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{\chi^w}\left(\frac{P_{t+s}}{P_{t}}\right)^{-1}(W_t^*)^{1-\epsilon^w}   - \nu H_{t+s}^{\phi} (W_t^*)^{-\epsilon^w}\right]
+\end{align*}
+
+
+The first order condition for the union is:
+\begin{align*}
+	&(\epsilon^w-1)\sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)} \lambda_{t+s}(W_t^*)^{1-\epsilon^w}  \\
+	& = \epsilon^w \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  (W_t^*)^{-\epsilon^w}
+\end{align*}
+
+
+We write it recursively using
+\begin{align*}
+% 	F_{1t} & =  \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \nu \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}   (W_t^*)^{-\epsilon^w} \\
+% 	& = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} \\
+% 	&+ \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w}  \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d H_{t+s}^{\phi} W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\epsilon^w\chi^w}   (W_{t+1}^*)^{-\epsilon^w} \\ 
+	F_{1t} & = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w} F_{1,t+1} \\ 
+% \end{align*}
+%
+% \begin{align*}
+% 	F_{2t} & =  H_{t}^d W_{t}^{\epsilon^w} \lambda_{t}(W_t^*)^{1-\epsilon^w} + \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)}\lambda_{t+s}(W_t^*)^{1-\epsilon^w} \\ 
+% 	& = H_{t}^d W_{t}^{\epsilon^w} \lambda_{t}(W_t^*)^{1-\epsilon^w} \\
+% 	&+ \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\chi^w(\epsilon^w-1)} \lambda_{t+1+s}(W_{t+1}^*)^{1-\epsilon^w} \\ 
+	F_{2t} & = H_{t}^d W_{t}^{\epsilon^w} \lambda_{t}(W_t^*)^{1-\epsilon^w} + \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  F_{2,t+1} \\ 
+% \end{align*}
+% and
+% \begin{align*}
+	\epsilon^w  F_{1t}&=(\epsilon^w-1)F_{2t}
+\end{align*}
+
+Wage dispersion across unions lead to inefficiency in the labor types used by firms. This creates a wedge between hours worked $H_t$ and effective hours worked $H_t^d$, which we denote by $s_t^w$,
+\begin{align*}
+	H_t &= s_t^w H_t^d,
+\end{align*}
+and which evolves according to,
+\begin{align*}
+% 	s_t^w &= \int_0^1 \left(\frac{W_{t}(i)}{W_t}\right)^{-\epsilon^w}di \\
+% 	&= (1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta^w \int_0^1   \left(\frac{W_{t-1}(i)\frac{P_{t-1}}{P_t}}{W_t}\right)^{-\epsilon^w}di \\
+s_t^w	&=(1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta \left(\frac{W_{t-1}}{W_t}\right)^{-\epsilon^w}\Pi_t^{\epsilon^w} s_{t-1}^w \\
+\end{align*}
+
+\subsection{Production of capital goods}
+
+The representative capital goods firm chooses investment $I_t$, the capital stock $K_t$, and the utilization rate $u_t$ to maximize profits,
+\begin{align*}
+	\max_{\{K_{t+s},I_{t+s}, u_{t+s}\}} &\sum_{s=0}^{\infty}  \Lambda_{t,t+s} \text{Profits}_t^k\\
+	\text{s.t. } \text{Profits}_t^k &= R_{t}^k u_{t} K_{t-1} - I_t\\
+	K_t &=  (1-\delta(u_t))K_{t-1} + I_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right)\right]
+\end{align*}
+where $R_{t+s}^k$ is the rental rate of capital paid by the final goods firm,  $S\left(\frac{I_t}{I_{t-1}}\right)$ is an investment adjustment cost, and $\delta(u)$ is the depreciation rate of capital which is increasing in utilization.
+While households die with probability $1-\omega$, profits per share also grow at rate $(1-\omega)^{-1}$ which exactly offsets the additional discounting.
+
+% First order conditions:
+% \begin{align*}
+% 	\lambda_{t} &= \zeta_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right) - \left(\frac{I_t}{I_{t-1}}\right) S'\left(\frac{I_t}{I_{t-1}}\right)\right] + \beta \zeta_{t+1} \left(\frac{I_{t+1}}{I_{t}}\right)^2 S'\left(\frac{I_{t+1}}{I_{t}}\right) \\
+% 	\zeta_t &= \beta \lambda_{t+1} R_{t+1}^k u_{t+1} + \beta(1-\delta(u_{t+1}))\zeta_{t+1} \\
+% 	\lambda_t R_{t+s}^k &=\delta'(u_{t})\zeta_t 
+% \end{align*}
+
+Let $\zeta_t$ be the Lagrange multiplier on the capital accumulation equation and define Tobin's q as the relative value of capital to nondurable consumption,
+\begin{align*}
+	q_t=\frac{\zeta_t}{\lambda_t}.
+\end{align*}
+
+Then the first order conditions for the representative capital producing firms are,
+\begin{align*}
+	1 &= q_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right) -  \left(\frac{I_t}{I_{t-1}}\right) S'\left(\frac{I_t}{I_{t-1}}\right)\right] + \Lambda_{t,t+1} q_{t+1} \left(\frac{I_{t+1}}{I_{t}}\right)^2 S'\left(\frac{I_{t+1}}{I_{t}}\right) \\
+	q_t &= \Lambda_{t,t+1} R_{t+1}^k u_{t+1} +  \Lambda_{t,t+1} (1-\delta(u_{t+1})) q_{t+1} \\
+	 R_{t}^k &=\delta'(u_{t})q_t
+\end{align*}
+
+The beginning-of-period value of the firm is
+\begin{align*}
+	q_t K_{t-1}
+\end{align*}
+
+
+\subsection{Production of final goods}
+
+Final output $Y_t$ is produced using a Cobb-Douglas production function with capital share $\alpha$,
+\begin{align*}
+	s_t Y_t = Z_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha}
+\end{align*}
+where $Z_t$ is aggregate TFP. The wedge $s_t$ captures a distortion from price dispersion, which is described below.
+
+The cost minimization for the representative final goods firm is
+\begin{align*}
+	&\min R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+	&\text{s.t. } Z_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha} = s_t Y_t
+\end{align*}
+which yields the following first order conditions for capital and labor,
+\begin{align*}
+	R_{t}^k &= \xi_t \alpha \frac{s_t Y_t}{u_t K_{t-1}} \\
+	W_t &= \xi_t (1-\alpha) \frac{s_t Y_t}{H_t^d}
+\end{align*}
+where $\xi_t$ is the Lagrange multiplier on the production function. Dividing the two first order conditions yields the optimal capital-labor ratio,
+\begin{align*}
+	\frac{u_t K_{t-1}}{H_t^d} &= \frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k},
+\end{align*}
+% 
+% Implied total cost:
+% \begin{align*}
+% 	TC_t &= R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+% 	&=R_{t}^k \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{1-\alpha} \frac{s_t Y_t}{Z_t} + W_t \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{-\alpha}\frac{s_t Y_t}{Z_t} \\
+% 	&=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{s_t Y_t}{Z_t} 
+% \end{align*}
+% 
+which in turn yields the marginal cost of output is,
+\begin{align*}
+	MC_t &=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{1}{Z_t} 
+\end{align*}
+
+With perfect competition among final goods firms, the real final goods price is equal to marginal cost,
+\begin{align*}
+	p_t^f &=MC_t,
+\end{align*}
+and final good firms make zero profits.
+
+\subsection{Prices}
+
+A continuum of retailers purchases final goods at price $p_t^f$ and differentiates these goods with elasticity of substitution $\epsilon$. Retailers can only reset their price with probability $\theta$. The profit maximization problem for setting the reset price is
+\begin{align*}
+	\max_{p_t^*} \sum_{s=0}^{\infty} \Lambda_{t,t+s}\theta^{s}Y_{t+s}\left[(p_t^*)^{1-\epsilon} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  -  (p_t^*)^{-\epsilon}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon}p^f_{t+s}\right]
+\end{align*}
+
+The first order condition for the optimal reset price is
+%\begin{align*}
+%	p_t^* &= \frac{\epsilon}{\epsilon-1}\frac{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} }{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1} Y_{t+s} }
+%\end{align*}
+\begin{align*}
+	\epsilon\sum_{s=0}^{\infty} \Lambda_{t,t+s} \theta^{s} Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon}   (p_t^*)^{-\epsilon-1}  p^f_{t+s}
+	&=(\epsilon-1)\sum_{s=0}^{\infty} \Lambda_{t,t+s}\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon} 
+\end{align*}
+which we write recursively as
+\begin{align*}
+% 	X_{1t} & =  Y_t MC_{t} (p_t^*)^{-\epsilon-1} + \sum_{s=1}^{\infty}\beta^s \left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} (p_t^*)^{-\epsilon-1} \\ 
+% 	& = Y_{t} MC_{t} (p_t^*)^{-\epsilon-1} \\
+% 	&+ \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  \sum_{s=0}^{\infty}\beta^s \left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon} MC_{t+1+s} (p_{t+1}^*)^{-\epsilon-1} \\ 
+	X_{1t} & = Y_{t} p_{t}^f (p_t^*)^{-\epsilon-1} + \Lambda_{t,t+1} \theta  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  X_{1,t+1} \\ 
+% \end{align*}
+% 
+% \begin{align*}
+% 	X_{2t} & =  Y_t  (p_t^*)^{-\epsilon} + \sum_{s=1}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon}  \\ 
+% 	& =  Y_{t} (p_t^*)^{-\epsilon} \\
+% 	& + \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  \sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon-1} (p_{t+1}^*)^{-\epsilon} \\ 
+	X_{2t} & =  Y_{t} (p_t^*)^{-\epsilon} + \Lambda_{t,t+1} \theta \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  X_{2,t+1} \\ 
+% \end{align*}
+% and
+% \begin{align*}
+	\epsilon  X_{1t}&=(\epsilon-1)X_{2t}
+\end{align*}
+The optimal reset price determines aggregate inflation
+\begin{align*}
+% 	P_t^{1-\epsilon} &= (1-\theta)(P_{t}^*)^{1-\epsilon} + \theta P_{t-1}^{1-\epsilon} \\
+	1 &= (1-\theta)(p_{t}^*)^{1-\epsilon} + \theta \Pi_{t}^{-(1-\epsilon)} %\\
+\end{align*}
+as well as the relative price distortion
+\begin{align*}
+	s_t &= \int_0^1 \left(\frac{P_{t}(i)}{P_t}\right)^{-\epsilon}di \\
+	&= (1-\theta)(p_t^*)^{-\epsilon} + \theta \int_0^1   \left(\frac{P_{t-1}(i)}{P_t}\right)^{-\epsilon}di \\
+	&=(1-\theta)(p_t^*)^{-\epsilon} + \theta \Pi_t^{\epsilon} s_{t-1} \\
+\end{align*}
+
+Due to monopoly power, the sticky-price firms make non-zero profits in equilibrium equal to 
+\begin{align*}
+	\text{Profits}_t^s = Y_t(1-p_t^f)
+\end{align*}
+
+\subsection{Durable Goods Production}
+
+Durable goods are produced competitively using nondurables $N_t$ as inputs,
+\begin{align*}
+    \frac{X_{it}}{p_t^d} = N_{it} \left(\frac{X_{t}}{\bar{X}}\frac{1}{p_t^d}\right)^{-\zeta}
+\end{align*}
+where $\frac{X_{it}}{p_t^d}$ is the real production of durable goods by firm $i$ and $\zeta$ is a negative production externality.
+
+Real profits from the sale of durable goods are
+\begin{align*}
+    \max_{N_{it}}X_{it} - N_{it} = \max_{N_{it}} p_t^d N_{it} \left(\frac{X_{t}}{\bar{X}}\frac{1}{p_t^d}\right)^{-\zeta} - N_{it}
+\end{align*}
+
+Profit maximization yields an upward sloping supply curve,
+\begin{align*}
+    p_t^d = \left(\frac{X_t}{\bar{X}}\right)^{\frac{\zeta}{1+\zeta}}
+\end{align*}
+where $\bar{X}$ is steady state durable expenditure, so the steady relative durable price is normalized to 1. Since durable expenditure is denominated in units of nondurable consumption, the supply elasticity of real durable goods is given by $\frac{1}{\zeta}$.
+
+Durable goods are rented out by competitive durable rental companies at a real price $R_t^d$.
+\begin{align*}
+	\max_{\{D_{t+s},X_{t+s}\}} &\sum_{s=0}^{\infty}  \Lambda_{t,t+s} \text{Profits}_t^d\\
+	\text{s.t. } \text{Profits}_t^d &= \left(R_{t}^d - \eta\right) D_{t} - X_t\\
+	D_t &=  (1-\delta^d)D_{t-1} + \frac{X_t}{p_t^d} 
+\end{align*}
+where $\eta$ is a durable operating cost. The first order condition for the representative firm is
+\begin{align*}
+	R_{t}^d = p_t^d + \eta -\frac{(1-\delta^d)}{R_t}p_{t+1}^d
+\end{align*}
+The beginning-of-period value of the firm is
+\begin{align*}
+	p_t^d (1-\delta^d) D_{t-1}
+\end{align*}
+
+
+
+\subsection{Government}
+
+The central bank sets the gross nominal interest rate according to the following interest rate rule,
+\begin{align*}
+	R_t &= (1-\rho_r)R_{t-1} + \rho_r\left[R + \phi_\pi(\Pi_t-\bar{\Pi}) + \phi_y\left(\frac{Y_t}{\bar{Y}}-1\right)\right]
+\end{align*}
+where $\rho_r$ determines the degree of interest rate smoothing, $\phi_\pi$ the response to deviations of inflation from target, and $\phi_y$ the response to deviations of output from target.
+
+The government issues one-period nominal bonds at gross interest $R_t$ to cover debt repayment and any fiscal deficit.
+\begin{align*}
+	B_t &= \frac{R_{t-1}}{\Pi_t}B_{t-1} - T_t + G_t
+\end{align*}
+
+To balance the budget over time, taxes are an increasing function of the debt level,
+\begin{align*}
+	T_t &= T + \phi_b(B_{t-k}-\bar{B}) - \epsilon_t.
+\end{align*}
+We allow for a lag of $k$ periods in the response of taxes to debt. The shock $\epsilon_t$ represents a one-time deficit financed transfer from the government to households.
+
+\subsection{Mutual Fund}
+
+The end of period share value of the mutual fund is
+\begin{align*}
+	Q_{t-1} = B_{t-1} + q_{t-1} K_{t-1} + p_{t-1}^d (1 - \delta^d) D_{t-1} + S_{t-1}^p
+\end{align*}
+where $S_t^p$ are the total value of shares in the sticky price firms. 
+Net income next period is:
+\begin{align*}
+	V_t = \left(\frac{R_{t-1}}{\Pi_t}-1\right) B_{t-1} - B_t + R_t^k u_t K_{t-1} - I_{t} + R_t^d  D_t - X_t + Y_t(1-p_t^f)
+\end{align*}
+Value of shares (sticky price shares exclude current profits)
+\begin{align*}
+	Q_{t} = B_{t} + q_{t} K_{t} + p_{t}^d (1 - \delta^d) D_{t} + S_{t}^p
+\end{align*}
+
+% https://www.christinahydepatterson.com/_files/ugd/32299b_8ca7549b40aa4fda80a68752c9243563.pdf
+
+
+
+Capital gains at the beginning of the period are:
+\begin{align*}
+	M_{t} = (q_{t} - q_{t-1}) K_{t-1} +(p_t^d - p_{t-1}^d) (1 - \delta^d) D_{t-1} + S_{t}^p - S_{t-1}^p
+\end{align*}
+% The total return on financial wealth is then:
+% \begin{align*}
+% 	R_{t}^s &= 1 + \frac{D_t + M_t}{S_{t-1}} \\
+% 	R_{t}^s S_{t-1} &= \frac{R_{t-1}}{\Pi_t} B_{t-1} + (R_t^k u_t +q_t(1- \delta(u_t)))K_{t-1} - I_{t} + (R_t^d + p_t^d(1 - \delta^d)) D_t - X_t + \text{Profit}^p + S_{t}^p
+% \end{align*}
+
+% The return on the mutual fund is
+% \begin{align*}
+% 	R_{t}S_{t-1} = \frac{R_{t-1}}{\Pi_t}B_t + (R_t^k u_t + q_t(1-\delta(u_t)))K_{t-1} - I_{t-1} + (R_t^d - \eta) D_t - X_t + (1-\delta)p_t^d D_{t-1} + \text{Profit}^p 
+% \end{align*}
+% Not sure durables are correct, I think capital is.
+
+
+\subsection{Market Clearing}
+
+The goods market clears if total expenditure equals output.
+\begin{align*}
+	Y_t &= C_t + I_t + X_t
+\end{align*}
+
+The bond market clears of bonds supplied by the government equal bonds held by households,
+\begin{align}
+    B_t &= A_t
+\end{align}
+
+
+
+\section{Steady State}
+
+
+\begin{align*}
+	R &= \beta^{-1} \\
+	G &= s_g Y \\
+	T &= s_g Y + (R-1)B \\
+	S &= B + K + (1 - \delta^d) D + S^p \\
+	R^s&= R \\
+	R^k&=R-1+\delta \\
+	R^d&=1+\eta -\frac{1-\delta^d}{R} \\
+	Q &= \\
+	(R-\omega)Q &= (1-\omega)Q + (R-1)B + (R^k - \delta) K + (R^d - \eta - \delta^d)D +\frac{1}{\epsilon}Y  \\
+	D&=\psi^{\sigma^d} \left[p^d + \nu - \frac{(1-\delta^d) p^d}{R} \right]^{-\sigma^d} C^{\frac{\sigma^d}{\sigma}} \\
+	X &= \delta^d D \\
+	I &= \delta K \\
+	s_x &= \frac{X}{C+ \nu D} \\
+	WH +(R-\omega)S - T &= Y(1-s_g) - \delta K + (R^d - \eta - \delta^d)D + (1-\omega)Q  \\
+	C   &= Y(1-s_g)  - \delta K  - (\eta + \delta^d)D + (1-\omega)Q
+\end{align*}
+
+
+
+
+\end{document}

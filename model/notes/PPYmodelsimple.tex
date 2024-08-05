@@ -1,0 +1,226 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\section{PPY Growth Model}
+
+\subsection{Households}
+
+Each period households remain with probability $\omega$ and a new cohort of size $1-\omega$ is born.
+
+Households of cohort $i$ have utility function over the nondurable good $C_{it}$.
+\begin{align*}
+	\sum_{s=0}^{\infty}(\beta\omega)^s u(C_{i,t+s}) 
+\end{align*}
+
+The household budget constraint for a household of cohort $i$ is
+\begin{align*}
+    Q_t S_{it}+C_{it}   = \frac{Q_{t}+D_t}{\omega} S_{i,t-1}  + H_{t}  - T_{t} - M
+\end{align*}
+
+For the cohort born at $t$ the budget constraint is
+\begin{align*}
+    Q_t S_{tt}+C_{tt}   = H_{t}  - T_{t} + \frac{\omega}{1-\omega} M
+\end{align*}
+we set $ M = \frac{(1-\omega)}{\omega} (Q + D) $ to ensure that all cohorts have the same wealth and consumption in steady state.
+In equilibrium we will then get $Q_t S_t+C_t = (Q_{t}+D_t) S_{t-1}+ H_t - T_t$.
+
+Define the financial return as
+\begin{align*}
+    R_t^s \equiv \frac{Q_{t}+D_t}{Q_{t-1}}
+\end{align*}
+
+The intertemporal budget constraint for a surviving household $i<t$ is:
+\begin{align*}
+	\sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s} C_{i,t+s}  & = \frac{R_{t}^s}{\omega}Q_{t-1} S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(H_{t+s}  - T_{t+s} - M)
+\end{align*}
+
+The intertemporal budget constraint for a newborn household is
+\begin{align*}
+	\sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s} C_{t,t+s}  & = \frac{R}{\omega}Q + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(H_{t+s}  - T_{t+s} - M)
+\end{align*}
+
+% The difference in consumption for newborn and surviving households is given by
+% \begin{align*}
+%     W_t^{\text{survivor}} - W_t^{\text{newborn}} + C_t^{\text{survivor}} - C_t^{\text{newborn}} = \frac{R_t}{\omega} W_{t-1}^{\text{survivor}} - \frac{R_t}{\omega} W
+% \end{align*}
+
+% For a newborn household we implicitely have $W_{t,t-1}=W_{t-1}$ given the transfer scheme.
+
+The first order condition for the household are:
+%\begin{align*}
+%	u'(C_{it})=&\beta  R_{t} u'(C_{i,t+1}) \\
+%	p_t^d u'(C_{it})&= w'(D_{it}) + \beta (1-\delta^d) u'(C_{i,t+1})
+%\end{align*}
+%
+%Combining the FOC, we obtain a static relationship between the durable stock and nondurable consumption,
+\begin{align*}
+	u'(C_{it})=&\beta  R_{t+1}^s u'(C_{i,t+1}) 
+\end{align*}
+% Note: t+1 variables already condition on survival
+
+Assume CRRA utility functions, we get
+\begin{align*}
+	C_{it} &= (\beta R_{t+1}^s)^{-\sigma}C_{i,t+1} 
+\end{align*}
+Note: $C_{i,t+1}$ is for a surviving household so does not aggregate.
+
+% Plug into ITBC:
+% \begin{align*}
+% 	\left[\sum_{s=0}^{\infty}\frac{(\beta^{\sigma}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma}}\right]&C_{it}+\psi^{\sigma^d}  \sum_{s=0}^{\infty}\frac{(\beta^{\sigma^d}\omega)^s}{(\prod_{k=1}^{s}R_{t+k}^s)^{1-\sigma^d}}\left(R_t^d + \eta\right)^{1-\sigma^d}   C_{it}^{\frac{\sigma^d}{\sigma}} \\
+% 	& = \frac{R_{t}^s}{\omega}Q_{t-1} S_{i,t-1} + \sum_{s=0}^{\infty}\frac{\omega^s}{\prod_{k=1}^{s}R_{t+k}^s}(W_{t+s}H_{i,t+s} - T_{i,t+s})
+% \end{align*}
+
+Aggregate variables are 
+\begin{align*}
+	X_t = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i}X_{i,t}
+\end{align*}
+
+Aggregate Euler equation:
+\begin{align*}
+    C_{t} &= (\beta R_{t+1}^s)^{-\sigma}C_{i<t+1,t+1} \\
+    &=(\beta R_{t+1}^s)^{-\sigma}C_{t+1} +(\beta R_{t+1})^{-\sigma} (1-\omega)(C_{i<t+1,t+1}-C_{t+1,t+1}) \\
+\end{align*}
+
+Define average discount factor as
+\begin{align*}
+	\Lambda_{t,t+s} = \sum_{i=-\infty}^{t}(1-\omega)\omega^{t-i} \beta \frac{u'(C_{i,t+1})}{u'(C_{i,t})}
+\end{align*}
+which satisfies
+\begin{align*}
+	\Lambda_{t,t+s}\prod_{k=1}^{s}R_{t+k}^s  = 1,\qquad \forall s\ge 0
+\end{align*}
+
+We assume an arbitrage relationship with bonds:
+\begin{align*}
+    R_{t+k}^s = R_{t+k},\qquad \forall k\ge 1
+\end{align*}
+
+Aggregate budget constraint for all cohorts:
+\begin{align*}
+    Q_t = R_t^s Q_{t-1} + H_t - T_t - C_t
+\end{align*}
+This is the evolution of aggregate financial wealth.
+
+From intertemporal budget constraint assuming CRRA we get per capita spending:
+\begin{align*}
+	C_{i<t,t}\left[\sum_{s=0}^{\infty}(\beta^{\sigma}\omega)^s \Lambda_{t,t+s}^{1-\sigma}\right]  &= \frac{R_{t}^s}{\omega} Q_{t-1} + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s}) \\
+    C_{t,t}\left[\sum_{s=0}^{\infty}(\beta^{\sigma}\omega)^s \Lambda_{t,t+s}^{1-\sigma}\right]  &= \frac{R^s}{\omega} Q + \sum_{s=0}^{\infty}\omega^s \Lambda_{t,t+s}(W_{t+s}H_{t+s} - T_{t+s}-M_{t+s})
+\end{align*}
+we get a difference:
+\begin{align*}
+    C_{i<t,t} - C_{t,t} = \left[\sum_{s=0}^{\infty}(\beta^{\sigma}\omega)^s \Lambda_{t,t+s}^{1-\sigma}\right]^{-1}\frac{1}{\omega}(R_{t+1}^s Q_{t}- R^s Q) 
+\end{align*}
+
+From the Euler equation:
+\begin{align*}
+    C_{t}&=(\beta R_{t+1}^s)^{-\sigma}C_{t+1} +(\beta R_{t+1}^s)^{-\sigma} (1-\omega)\left[\sum_{s=0}^{\infty}(\beta^{\sigma}\omega)^s \Lambda_{t+1,t+1+s}^{1-\sigma}\right]^{-1}\frac{1}{\omega}(R_{t+1}^s Q_{t}- R^s Q) \\
+\end{align*}
+
+Like bond in the utility function. Define 
+\begin{align*}
+    mpc_t^{-1} \equiv 1 + \beta^{\sigma}\omega \Lambda_{t,t+1}^{1-\sigma}mpc_{t+1}^{-1} 
+\end{align*}
+to get
+\begin{align*}
+    C_{t}&=(\beta R_{t+1})^{-\sigma}C_{t+1} +(\beta R_{t+1}^s)^{-\sigma} (1-\omega)mpc_{t+1} \frac{1}{\omega}(R_{t+1}^s Q_{t}- R^s Q) \\
+\end{align*}
+
+With log utility and no transfers
+\begin{align*}
+    C_{t}&=(\beta R_{t+1})^{-1}C_{t+1} + (1-\omega)(1-\beta\omega) \frac{1}{\beta\omega}W_{t} \\
+\end{align*}
+
+\section{Government}
+
+Government budget constraint
+\begin{align*}
+    B_t = R_t B_{t-1} - T_t
+\end{align*}
+
+\section{Model without capital}
+
+\subsection{Market clearing}
+\begin{align*}
+    Y_t &= H_t = C_t \\
+    W_t &= B_t \\
+\end{align*}
+
+\subsection{Steady State}
+\begin{align*}
+    Y &= H = C \\
+    W &= B = T = 0 \\
+\end{align*}
+
+\subsection{Dynamics}
+\begin{align*}
+    W_t = B_t = \sum_{s=0}^{\infty}(\prod_{k=0}^{s}R_{t+k+1})^{-1}T_{t+s+1} = 0
+\end{align*}
+since there is no way to transfer resources.
+
+\section{Model with Lucas Tree}
+
+Lucas tree pays dividends
+\begin{align*}
+    (1 - \phi) Y_t
+\end{align*}
+value of Lucas tree is
+\begin{align*}
+    V_t = (1 - \phi)\sum_{s=0}^{\infty}(\prod_{k=0}^{s}R_{t+k+1})^{-1}Y_{t+s+1} = 0
+\end{align*}
+and the current wealth of Lucas trees is
+\begin{align*}
+    R_{t}V_{t-1} = (1 - \phi)\sum_{s=0}^{\infty}(\prod_{k=1}^{s}R_{t+k})^{-1}Y_{t+s} = 0
+\end{align*}
+
+\subsection{Market clearing}
+\begin{align*}
+    C_t &= Y_t \\
+    \phi Y_t &=  H_t \\
+    W_t &= B_t + V_t \\
+\end{align*}
+
+\subsection{Steady State}
+\begin{align*}
+    Y &= C \\
+    B &= T = 0 \\
+    V &= (1-\phi)\frac{Y}{R-1} 
+\end{align*}
+
+\subsection{Dynamics}
+\begin{align*}
+    T_t  &= 0 \\
+    B_t &= \sum_{s=0}^{\infty}(\prod_{k=1}^{s}R_{t+s+1})^{-1}T_{t+s+1} = 0 \\
+\end{align*}
+since there is no way to transfer resources.
+
+With log utility and $C_t=Y_t$ and guessing $Y_t=(\tilde{\beta}R_{t+1})^{-1}Y_{t+1}$
+we get
+\begin{align*}
+    R_tV_{t-1} = \frac{1-\phi}{1-\tilde{\beta}}Y_t
+\end{align*}
+so the consumption function solves
+\begin{align*}
+    Y_t = (1-\beta\omega)\left[\frac{1-\phi}{1-\tilde{\beta}} + \frac{\phi}{1-\tilde{\beta}\omega} \right]Y_t
+\end{align*}
+which we have to solve for $\tilde{\beta}$. Then the Euler equation assuming no wealth transfer for newborns is
+\begin{align*}
+    Y_{t}&=(\beta R_{t+1})^{-1}Y_{t+1} + (1-\omega)(1-\beta\omega) \frac{1}{\beta\omega} \frac{1-\phi}{1-\tilde{\beta}} R_{t+1}^{-1}Y_{t+1} \\
+\end{align*}
+
+Are these consistent? Yes!
+\begin{align*}
+    1 &= (1-\beta\omega)\left[\frac{1-\phi}{1-\tilde{\beta}} + \frac{\phi}{1-\tilde{\beta}\omega} \right] \\
+    \tilde{\beta}^{-1}&= \beta^{-1} + (1-\omega)(1-\beta\omega) \frac{1}{\beta\omega} \frac{1-\phi}{1-\tilde{\beta}} \\
+    % 1-\tilde{\beta}\omega  &= 1- \beta\omega+ \tilde{\beta} (1-\omega)(1-\beta\omega) \frac{1-\phi}{1-\tilde{\beta}} \\
+\end{align*}
+
+
+\end{document}

@@ -1,0 +1,619 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\section{Durable NK Model}
+
+\subsection{Optimzing Households}
+
+Two types, optimizing and rule-of-thumb. Maximization problem for optimizing agent:
+\begin{align*}
+	\max_{\{C_{t+s},D_{t+s},A_{t+s},X_{t+s}\}}U = E_t \sum_{s=0}^{\infty}\beta^t \left[\frac{C_{t+s}^{1-\frac{1}{\sigma}}}{1-\frac{1}{\sigma}} + \psi \frac{D_{t+s}^{1-\frac{1}{\sigma^d}}}{1-\frac{1}{\sigma^d}}  - \nu \frac{H_{t+s}^{1+\phi}}{1+\phi} - \frac{\xi}{2}A_t^2\right]
+\end{align*}
+
+Constraints:
+\begin{align*}
+	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - OC_t  - C_t + W_t H_t\ - X_t  - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	D_t &= \left[\int_0^{1} D_t(i)^{\frac{\varphi-1}{\varphi}}di\right]^{\frac{\varphi}{\varphi-1}} \\
+	X_t &= p_t^d \left[\int_0^{1}[D_t(i) - (1-\delta^d)D_{t-1}(i) ]di\right] \\
+	OC_t &= \eta  \int_0^{1} D_t(i) di 
+\end{align*}
+
+% Constraints:
+% \begin{align*}
+% 	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - OC_t  - C_t + W_t H_t\ - X_t  - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+% 	D_t &= \left[\int_0^{1} d_t(i)^{\frac{\varphi-1}{\varphi}}di\right]^{\frac{\varphi}{\varphi-1}}=  \left[(1-\theta^d)(D_{t}^*)^{\frac{\varphi-1}{\varphi}} + \theta^d (1-\delta^d)D_{t-1}^{\frac{\varphi-1}{\varphi}}\right]^{\frac{\varphi}{\varphi-1}} \\
+% 	X_t &= p_t^d(1-\theta^d)[ D_t^* -  (1-\delta^d)  D_{t-1}] \\
+% 	OC_t &= \eta  \int_0^{1} d_t(i) di =  \eta (1-\theta^d)D_{t}^* + \eta  \theta^d (1-\delta^d)D_{t-1}  \\
+% \end{align*}
+
+FOC for optimizing households for $C_t, A_t$:
+\begin{align*}
+	\lambda_t &= C_t^{\frac{-1}{\sigma}} \\
+	\lambda_t &= \beta \frac{R_t}{\Pi_{t+1}} \lambda_{t+1}  
+	% p_t^d \lambda_t &= \mu_t \\
+	% \mu_t &= - \eta\lambda_t + \beta(1-\delta^d)(1-f)\mu_{t+1}+ \psi D_t^{\frac{-1}{\sigma^d}} 
+%	\\
+%	\lambda_t R_t^k   &= \mu_t\delta'(u_t) 
+\end{align*}
+
+The Calvo optimization problem for $D_{t}(i)$ is:
+\begin{align*}
+	\max_{D_t(i)}\sum_{s=0}^{\infty}(\beta\theta)^s\left[\psi \frac{\left(\int_0^{1} D_t(i)^{\frac{\varphi-1}{\varphi}}di\right)^{\frac{\varphi}{\varphi-1}\frac{\sigma^d-1}{\sigma^d}}}{1-\frac{1}{\sigma^d}} - \lambda_{t+s}\eta D_t(i) \right] - \lambda_t p_t^d D_t(i) + \sum_{s=0}^{\infty}\beta^s\theta^{s-1}(1-\theta) \lambda_{t+s} p_{t+s}^d (1-\delta^d)^s D_{t+s}(i)
+\end{align*}
+where $\sum_{s=0}^{\infty}(\beta\theta)^s\psi \frac{\left(\int_0^{1} D_t(i)^{\frac{\varphi-1}{\varphi}}di\right)^{\frac{\varphi}{\varphi-1}\frac{\sigma^d-1}{\sigma^d}}}{1-\frac{1}{\sigma^d}}$ captures how $D_t(i)$ affects utility, $\sum_{s=0}^{\infty}(\beta\theta)^s \lambda_{t+s}\eta D_t(i) $ is the expected operating cost, $\lambda_t p_t^d D_t(i)$ is the cost of purchasing the durable in utils, 
+and $\sum_{s=0}^{\infty}\beta^s\theta^{s-1}(1-\theta) \lambda_{t+s} p_{t+s}^d (1-\delta^d)^s D_{t+s}(i)$ is the expected resale value.
+
+The FOC is
+\begin{align*}
+	\psi\sum_{s=0}^{\infty}[\beta\theta^d(1-\delta^d)]^s (D_t(i))^{-\frac{1}{\varphi}}D_{t+s}^{\frac{1}{\varphi}-\frac{1}{\sigma^d}} &=p_t^d\lambda_t + \eta \sum_{s=0}^{\infty}[\beta\theta^d(1-\delta^d)]^s \lambda_{t+s} \\
+	& - \beta(1-\theta^d)(1-\delta^d)\sum_{s=1}^{\infty}[\beta\theta^d(1-\delta^d)]^{s-1} p_{t+s}^d\lambda_{t+s} \\
+\end{align*}
+
+
+Assuming symmetry $D_t(i)=D_t^*$ we get
+\begin{align*}
+	D_t^* &= \left(\frac{G_{1t}}{G_{2t}}\right)^{\varphi} \\
+	G_{1t} &= \psi D_t^{\frac{1}{\varphi}-\frac{1}{\sigma^d}} + \beta\theta^d(1-\delta^d)G_{1,t+1} \\
+	G_{2t} &= (p_t^d+\eta)\lambda_t - \beta(1-\delta^d)p_{t+1}^d\lambda_{t+1} + \beta\theta^d(1-\delta^d)G_{2,t+1} \\
+	&=\lambda_t\left[p_t^d + \eta - \frac{(1-\delta^d)\Pi_{t+1}}{R_t}p_{t+1}^d\right] + \beta\theta^d(1-\delta^d)G_{2,t+1} \\
+	D_t &=   \left[(1-\theta^d)(D_{t}^*)^{\frac{\varphi-1}{\varphi}} + \theta^d (1-\delta^d)D_{t-1}^{\frac{\varphi-1}{\varphi}}\right]^{\frac{\varphi}{\varphi-1}} \\
+\end{align*}
+
+\subsection{Optimzing Households Version 2}
+
+In this version we assume that only a fraction $1-\theta^d$ of households can adjust their durable stock.
+Optimizing households perfectly insure nondurable consumption risk amongst themselves but cannot transfer durables. 
+Then the utility function is:
+\begin{align*}
+	\max_{\{C_{t+s},D_{t+s}(i),A_{t+s},X_{t+s}\}}U = E_t \sum_{s=0}^{\infty}\beta^t \left[\frac{C_{t+s}^{1-\frac{1}{\sigma}}}{1-\frac{1}{\sigma}} + \psi \frac{\int_0^1 D_{t+s}(i)^{1-\frac{1}{\sigma^d}}di}{1-\frac{1}{\sigma^d}}  - \nu \frac{H_{t+s}^{1+\phi}}{1+\phi} - \frac{\xi}{2}A_t^2\right]
+\end{align*}
+
+Constraints:
+\begin{align*}
+	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - OC_t  - C_t + W_t H_t\ - X_t  - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	D_t &= \left[\int_0^{1} D_t(i)^{\frac{\sigma^d-1}{\sigma^d}}di\right]^{\frac{\sigma^d}{\sigma^d-1}} \\
+	X_t &= p_t^d \left[\int_0^{1}[D_t(i) - (1-\delta^d)D_{t-1}(i) ]di\right] \\
+	OC_t &= \eta  \int_0^{1} D_t(i) di 
+\end{align*}
+
+% Constraints:
+% \begin{align*}
+% 	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - OC_t  - C_t + W_t H_t\ - X_t  - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+% 	D_t &= \left[\int_0^{1} d_t(i)^{\frac{\varphi-1}{\varphi}}di\right]^{\frac{\varphi}{\varphi-1}}=  \left[(1-\theta^d)(D_{t}^*)^{\frac{\varphi-1}{\varphi}} + \theta^d (1-\delta^d)D_{t-1}^{\frac{\varphi-1}{\varphi}}\right]^{\frac{\varphi}{\varphi-1}} \\
+% 	X_t &= p_t^d(1-\theta^d)[ D_t^* -  (1-\delta^d)  D_{t-1}] \\
+% 	OC_t &= \eta  \int_0^{1} d_t(i) di =  \eta (1-\theta^d)D_{t}^* + \eta  \theta^d (1-\delta^d)D_{t-1}  \\
+% \end{align*}
+
+FOC for optimizing households for $C_t, A_t$:
+\begin{align*}
+	\lambda_t &= C_t^{\frac{-1}{\sigma}} \\
+	\lambda_t &= \beta \frac{R_t}{\Pi_{t+1}} \lambda_{t+1}  
+	% p_t^d \lambda_t &= \mu_t \\
+	% \mu_t &= - \eta\lambda_t + \beta(1-\delta^d)(1-f)\mu_{t+1}+ \psi D_t^{\frac{-1}{\sigma^d}} 
+%	\\
+%	\lambda_t R_t^k   &= \mu_t\delta'(u_t) 
+\end{align*}
+
+The Calvo optimization problem for $D_{t}(i)$ is:
+\begin{align*}
+	\max_{D_t(i)}\sum_{s=0}^{\infty}(\beta\theta)^s\left[\psi \frac{ D_t(i)^{\frac{\sigma^d-1}{\sigma^d}}}{1-\frac{1}{\sigma^d}} - \lambda_{t+s}\eta D_t(i) \right] - \lambda_t p_t^d D_t(i) + \sum_{s=0}^{\infty}\beta^s\theta^{s-1}(1-\theta) \lambda_{t+s} p_{t+s}^d (1-\delta^d)^s D_{t}(i)
+\end{align*}
+where $\sum_{s=0}^{\infty}(\beta\theta)^s\psi \frac{ D_t(i)^{\frac{\sigma^d-1}{\sigma^d}}}{1-\frac{1}{\sigma^d}}$ captures how $D_t(i)$ affects utility, $\sum_{s=0}^{\infty}(\beta\theta)^s \lambda_{t+s}\eta D_t(i) $ is the expected operating cost, $\lambda_t p_t^d D_t(i)$ is the cost of purchasing the durable in utils, 
+and $\sum_{s=0}^{\infty}\beta^s\theta^{s-1}(1-\theta) \lambda_{t+s} p_{t+s}^d (1-\delta^d)^s D_{t}(i)$ is the expected resale value.
+
+The FOC is
+\begin{align*}
+	\psi\sum_{s=0}^{\infty}[\beta\theta^d(1-\delta^d)]^s (D_t(i))^{-\frac{1}{\sigma^d}} &=p_t^d\lambda_t + \eta \sum_{s=0}^{\infty}[\beta\theta^d(1-\delta^d)]^s \lambda_{t+s} \\
+	& - \beta(1-\theta^d)(1-\delta^d)\sum_{s=1}^{\infty}[\beta\theta^d(1-\delta^d)]^{s-1} p_{t+s}^d\lambda_{t+s} \\
+\end{align*}
+
+
+Assuming symmetry $D_t(i)=D_t^*$ we get
+\begin{align*}
+	D_t^* &= \left(\frac{G_{1t}}{G_{2t}}\right)^{\varphi} \\
+	G_{1t} &= \psi D_t^{\frac{1}{\varphi}-\frac{1}{\sigma^d}} + \beta\theta^d(1-\delta^d)G_{1,t+1} \\
+	G_{2t} &= (p_t^d+\eta)\lambda_t - \beta(1-\delta^d)p_{t+1}^d\lambda_{t+1} + \beta\theta^d(1-\delta^d)G_{2,t+1} \\
+	&=\lambda_t\left[p_t^d + \eta - \frac{(1-\delta^d)\Pi_{t+1}}{R_t}p_{t+1}^d\right] + \beta\theta^d(1-\delta^d)G_{2,t+1} \\
+	D_t &=   \left[(1-\theta^d)(D_{t}^*)^{\frac{\varphi-1}{\varphi}} + \theta^d (1-\delta^d)D_{t-1}^{\frac{\varphi-1}{\varphi}}\right]^{\frac{\varphi}{\varphi-1}} \\
+\end{align*}
+
+\subsection{Rule-of-Thumb Households}
+
+FOC for rule-of-thumb household:
+\begin{align*}
+	C_t^m - C^m + \eta (D_t^m - D^m)  &= \sum_{l=0}^{L} mpc_l [ W_{t-l} H_{t-l}^m - T_{t-l}^m - (W H^m - T^m )]\prod_{k=1}^{l}\frac{R_{t-k}}{\Pi_{t-k+1}} \\
+	X_t^m - X^m &= \sum_{l=0}^{L} mpx_l [ W_{t-l} H_t^m - T_{t-l}^m - (W H^m - T^m )]\prod_{k=1}^{l}\frac{R_{t-k}}{\Pi_{t-k+1}} \\
+	1&= \sum_{l=0}^{L} \left(mpc_l + mpx_l\right) \\
+	& mpx_l = \frac{\theta}{1-\theta} mpc_l,	\qquad \forall l=0,...,L  \\
+\end{align*} 
+
+Assume that steady-state expenditure ratios are the same,
+\begin{align*}
+	W H^m - T^m &= W H^o - T^o \\
+	\frac{C^m}{X^m} &= \frac{C^o}{X^o}
+\end{align*}
+
+
+\subsection{Wages}
+
+Union forces same hours across types:
+\begin{align*}
+	H_t^r = H_t^o = H_t
+\end{align*}
+
+Relative demand if reset at time $t$
+\begin{align*}
+	H_{t+s}^d(j) = H_{t+s}^d \left(\frac{W_{t}(j)(\frac{P_{t+s-1}}{P_{t-1}})^{\chi^w} (\frac{P_t}{P_{t+s}})}{W_{t+s}}\right)^{-\epsilon^w} = H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  W_{t}(j)^{-\epsilon^w}
+\end{align*}
+
+Optimization problem for union:
+\begin{align*}
+	\max_{w_t^*} \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}\left[\tilde{\lambda}_{t+s}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{\chi^w}\left(\frac{P_{t+s}}{P_{t}}\right)^{-1}(W_t^*)^{1-\epsilon^w}   - \nu H_{t+s}^{\phi} (W_t^*)^{-\epsilon^w}\right]
+\end{align*}
+where $\tilde{\lambda} = (1-\gamma)\lambda_t^o + \gamma\lambda_t^r$
+
+First order condition:
+\begin{align*}
+	&(\epsilon^w-1)\sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)} \tilde{\lambda}_{t+s}(W_t^*)^{1-\epsilon^w}  \\
+	& = \epsilon^w \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  (W_t^*)^{-\epsilon^w}
+\end{align*}
+
+
+Write recursively as:
+\begin{align*}
+	F_{1t} & =  \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \nu \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}   (W_t^*)^{-\epsilon^w} \\
+	& = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} \\
+	&+ \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w}  \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d H_{t+s}^{\phi} W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\epsilon^w\chi^w}   (W_{t+1}^*)^{-\epsilon^w} \\ 
+	& = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w} F_{1,t+1} \\ 
+\end{align*}
+
+\begin{align*}
+	F_{2t} & =  H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} + \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)}\tilde{\lambda}_{t+s}(W_t^*)^{1-\epsilon^w} \\ 
+	& = H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} \\
+	&+ \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\chi^w(\epsilon^w-1)} \tilde{\lambda}_{t+1+s}(W_{t+1}^*)^{1-\epsilon^w} \\ 
+	& = H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} + \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  F_{2,t+1} \\ 
+\end{align*}
+and
+\begin{align*}
+	\epsilon^w  F_{1t}=(\epsilon^w-1)F_{2t}
+\end{align*}
+
+Wage distortion (labor supply higher than demand)
+\begin{align*}
+	H_t &= s_t^w H_t^d \\
+\end{align*}
+
+\begin{align*}
+	s_t^w &= \int_0^1 \left(\frac{W_{t}(i)}{W_t}\right)^{-\epsilon^w}di \\
+	&= (1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta^w \int_0^1   \left(\frac{W_{t-1}(i)\frac{P_{t-1}}{P_t}}{W_t}\right)^{-\epsilon^w}di \\
+	&=(1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta \left(\frac{W_{t-1}}{W_t}\right)^{-\epsilon^w}\Pi_t^{\epsilon^w} s_{t-1}^w \\
+\end{align*}
+
+
+\subsection{Production of capital goods}
+
+Maximization problem:
+\begin{align*}
+	\max_{\{K_{t+s},I_{t+s}, u_{t+s}\}} &\sum_{s=0}^{\infty}\beta^s \lambda_{t+s} \text{Profits}_t^k\\
+	\text{s.t. } \text{Profits}_t^k &= R_{t+s}^k u_{t+s} K_{t+s-1} - I_t\\
+	K_t &=  (1-\delta(u_t))K_{t-1} + I_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right)\right]
+\end{align*}
+
+First order conditions:
+\begin{align*}
+	\lambda_{t} &= \zeta_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right) - \left(\frac{I_t}{I_{t-1}}\right) S'\left(\frac{I_t}{I_{t-1}}\right)\right] + \beta \zeta_{t+1} \left(\frac{I_{t+1}}{I_{t}}\right)^2 S'\left(\frac{I_{t+1}}{I_{t}}\right) \\
+	\zeta_t &= \beta \lambda_{t+1} R_{t+1}^k u_{t+1} + \beta(1-\delta(u_{t+1}))\zeta_{t+1} \\
+	\lambda_t R_{t+s}^k &=\delta'(u_{t})\zeta_t 
+\end{align*}
+
+Define Tobin's q as:
+\begin{align*}
+	q_t=\frac{\zeta_t}{\lambda_t}
+\end{align*}
+
+Then the FOC become:
+\begin{align*}
+	1 &= q_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right) -  \left(\frac{I_t}{I_{t-1}}\right) S'\left(\frac{I_t}{I_{t-1}}\right)\right] + \beta \frac{\lambda_{t+1}}{\lambda_t} q_{t+1} \left(\frac{I_{t+1}}{I_{t}}\right)^2 S'\left(\frac{I_{t+1}}{I_{t}}\right) \\
+	q_t &= \beta \frac{\lambda_{t+1}}{\lambda_t} R_{t+1}^k u_{t+1} + \beta(1-\delta(u_{t+1})) \frac{\lambda_{t+1}}{\lambda_t} q_{t+1} \\
+	 R_{t}^k &=\delta'(u_{t})q_t
+\end{align*}
+
+
+\subsection{Production of final goods}
+
+Production function
+\begin{align*}
+	s_t Y_t = Z_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha}
+\end{align*}
+
+Cost minimization
+\begin{align*}
+	&\min R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+	&\text{s.t. } Z_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha} = s_t Y_t
+\end{align*}
+
+FOC:
+\begin{align*}
+	R_{t}^k &= \zeta_t \alpha \frac{s_t Y_t}{u_t K_{t-1}} \\
+	W_t &= \zeta_t (1-\alpha) \frac{s_t Y_t}{H_t^d}
+\end{align*}
+
+Optimal capital-labor ratio:
+\begin{align*}
+	\frac{u_t K_{t-1}}{H_t^d} &= \frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}
+\end{align*}
+
+Implied total cost:
+\begin{align*}
+	TC_t &= R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+	&=R_{t}^k \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{1-\alpha} \frac{s_t Y_t}{Z_t} + W_t \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{-\alpha}\frac{s_t Y_t}{Z_t} \\
+	&=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{s_t Y_t}{Z_t} 
+\end{align*}
+
+Marginal Cost:
+\begin{align*}
+	MC_t &=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{1}{Z_t} 
+\end{align*}
+
+With perfect competition, the real final goods price is:
+\begin{align*}
+	p_t^f &=MC_t
+\end{align*}
+
+\subsection{Prices}
+
+Price setting problem for sticky price firm:
+\begin{align*}
+	\max_{p_t^*} \sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left[(p_t^*)^{1-\epsilon} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  - MC_{t+s} (p_t^*)^{-\epsilon}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon}\right]
+\end{align*}
+
+FOC:
+%\begin{align*}
+%	p_t^* &= \frac{\epsilon}{\epsilon-1}\frac{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} }{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1} Y_{t+s} }
+%\end{align*}
+\begin{align*}
+	\epsilon\sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s} Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} (p_t^*)^{-\epsilon-1} 
+	&=(\epsilon-1)\sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon} 
+\end{align*}
+
+Write recursively as:
+\begin{align*}
+	X_{1t} & =  Y_t MC_{t} (p_t^*)^{-\epsilon-1} + \sum_{s=1}^{\infty}\beta^s \left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} (p_t^*)^{-\epsilon-1} \\ 
+	& = Y_{t} MC_{t} (p_t^*)^{-\epsilon-1} \\
+	&+ \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  \sum_{s=0}^{\infty}\beta^s \left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon} MC_{t+1+s} (p_{t+1}^*)^{-\epsilon-1} \\ 
+	& = Y_{t} MC_{t} (p_t^*)^{-\epsilon-1} + \beta\theta  \left(\frac{\lambda_{t+1}}{\lambda_{t}}\right)\left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  X_{1,t+1} \\ 
+\end{align*}
+
+\begin{align*}
+	X_{2t} & =  Y_t  (p_t^*)^{-\epsilon} + \sum_{s=1}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon}  \\ 
+	& =  Y_{t} (p_t^*)^{-\epsilon} \\
+	& + \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  \sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon-1} (p_{t+1}^*)^{-\epsilon} \\ 
+	& =  Y_{t} (p_t^*)^{-\epsilon} + \beta\theta  \left(\frac{\lambda_{t+1}}{\lambda_{t}}\right)\left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  X_{2,t+1} \\ 
+\end{align*}
+and
+\begin{align*}
+	\epsilon  X_{1t}=(\epsilon-1)X_{2t}
+\end{align*}
+
+
+Aggregate Prices and inflation:
+\begin{align*}
+	P_t^{1-\epsilon} &= (1-\theta)(P_{t}^*)^{1-\epsilon} + \theta P_{t-1}^{1-\epsilon} \\
+	1 &= (1-\theta)(p_{t}^*)^{1-\epsilon} + \theta \Pi_{t}^{-(1-\epsilon)} \\
+\end{align*}
+
+Output distortion
+\begin{align*}
+	s_t &= \int_0^1 \left(\frac{P_{t}(i)}{P_t}\right)^{-\epsilon}di \\
+	&= (1-\theta)(p_t^*)^{-\epsilon} + \theta \int_0^1   \left(\frac{P_{t-1}(i)}{P_t}\right)^{-\epsilon}di \\
+	&=(1-\theta)(p_t^*)^{-\epsilon} + \theta \Pi_t^{\epsilon} s_{t-1} \\
+\end{align*}
+
+Real profits of sticky-price firms:
+\begin{align*}
+	\text{Profits}_t^f = Y_t(1-p_t^f) = Y_t(1-MC_t)
+\end{align*}
+
+
+\subsection{Government}
+
+Interest rate rule
+\begin{align*}
+	R_t &= (1-\rho_r)R_{t-1} + \rho_r\left[R + \phi_\pi(\Pi_t-\bar{\Pi}) + \phi_y\left(\frac{Y_t}{\bar{Y}}-1\right)\right]
+\end{align*}
+
+Budget constraint
+\begin{align*}
+	B_t &= \frac{R_{t-1}}{\Pi_t}B_{t-1} + G_t - T_t
+\end{align*}
+
+
+Budget rule:
+\begin{align*}
+	T_t &= T + \phi_b(B_{t-k}-\bar{B}) - \epsilon_t
+\end{align*}
+
+Steady state transfers are such that consumption is the same for both types:
+\begin{align*}
+	T_t^r = T_t^o + (T^r - T^o)
+\end{align*}
+
+\subsection{Market Clearing}
+
+Aggregates:
+\begin{align*}
+	C_t &= (1-\gamma) C_t^o + \gamma C_t^r \\
+	D_t &= (1-\gamma) D_t^o + \gamma D_t^r \\
+	X_t &= (1-\gamma) X_t^o + \gamma X_t^r \\
+	H_t &= (1-\gamma) H_t^o + \gamma H_t^r \\
+%	I_t &= (1-\gamma) I_t^o + \gamma I_t^r \\
+%	K_t &= (1-\gamma) K_t^o + \gamma K_t^r \\
+	A_t &= (1-\gamma) A_t^o + \gamma A_t^r \\
+	T_t &= (1-\gamma) T_t^o + \gamma T_t^r \\
+\end{align*}
+
+Goods market
+\begin{align*}
+	Y_t &= C_t + I_t + X_t + G_t
+\end{align*}
+
+
+\subsection{Functional Forms}
+
+\begin{align*}
+	\delta(u_t) &= \delta_0 + \delta_1 (u_t-1) + \delta_2 (u_t-1)^2 \\
+	S\left(\frac{I_t}{I_{t-1}}\right) &=\frac{\kappa}{2}\left(\frac{I_t}{I_{t-1}}-1\right)^{2}
+\end{align*}
+
+
+\section{Steady State}
+
+Fixed / targeted:
+\begin{align*}
+	A^o &= 0 \\
+	B &= 0 \\
+	\Pi &= 1 \\
+	p^d &= 1 \\
+	u &= 1 \\
+	Z& = 1
+\end{align*}
+
+
+\subsection{Households}
+\begin{align*}
+	D &=   \frac{X}{1-(1-\delta^d)} \\
+	\lambda &= (C^o)^{\frac{-1}{\sigma}}  \\
+	R &= \beta^{-1}  \\
+	 \frac{\psi (D^o)^{-\frac{1}{\sigma^d}}}{(C^o)^{-\frac{1}{\sigma}}} & =1-\beta(1-\delta^d)(1-f) \\
+	 \frac{D^r}{C^r} & = \frac{D^o}{C^o} \\
+	  C^r +(1+\eta-(1-\delta^d)) D^r &= W H^r - T^r
+\end{align*}
+
+
+
+\subsection{Wages}
+
+\begin{align*}
+	H^r &= H^o = H \\
+	s^w &= 1 \\
+	H^d &= H \\
+	W^* &= W \\
+	\tilde{\lambda} &=\lambda \\
+	F_{1} & = \frac{\nu}{1-\beta\theta^w} H^{1+\phi} \\
+	F_{2} & = \frac{1}{1-\beta\theta^w}  H  \tilde{\lambda} W \\
+	\tilde{\lambda} W&=\frac{\epsilon^w}{\epsilon^w-1}\nu H^{\phi} \\
+\end{align*}
+
+
+\subsection{Production of capital goods}
+
+Then the FOC become:
+\begin{align*}
+	1 &= q \\
+	1 &= \beta   R^k  + \beta(1-\delta(1))    \\
+	 R^k &=\delta'(1) \\
+\end{align*}
+
+
+\subsection{Production of final goods}
+
+Production function
+\begin{align*}
+	s &= 1 \\
+	Y &= K^{\alpha} H^{1-\alpha} \\
+	\frac{K}{H} &= \frac{\alpha}{1-\alpha}\frac{W}{R^k} \\
+	MC &=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R^k)^{\alpha}W^{1-\alpha} \\
+	p^f &=MC \\
+	X_{1} & = \frac{1}{1-\beta\theta} Y MC  \\ 
+	X_{2} & =\frac{1}{1-\beta\theta}  Y_{t}  \\ 
+	MC &=  \frac{\epsilon-1}{\epsilon} \\
+	p^* &= 1 \\
+	\text{Profits}^f &= Y(1-MC)
+\end{align*}
+
+
+
+
+
+\subsection{Market Clearing}
+%
+%Aggregates:
+%\begin{align*}
+%	C_t &= (1-\gamma) C_t^o + \gamma C_t^r \\
+%	D_t &= (1-\gamma) D_t^o + \gamma D_t^r \\
+%	X_t &= (1-\gamma) X_t^o + \gamma X_t^r \\
+%	H_t &= (1-\gamma) H_t^o + \gamma H_t^r \\
+%%	I_t &= (1-\gamma) I_t^o + \gamma I_t^r \\
+%%	K_t &= (1-\gamma) K_t^o + \gamma K_t^r \\
+%	A_t &= (1-\gamma) A_t^o + \gamma A_t^r \\
+%	T_t &= (1-\gamma) T_t^o + \gamma T_t^r \\
+%\end{align*}
+
+\begin{align*}
+	Y &= C + I + X + G
+\end{align*}
+
+
+\subsection{Solution}
+
+\begin{align*}
+	MC &=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R^k)^{\alpha}[\frac{1-\alpha}{\alpha}\frac{K}{H} R^k]^{1-\alpha} \\
+	\left(\frac{K}{H}\right)^{1-\alpha}&=\frac{\alpha MC}{R^k} \\
+	\left(\frac{K}{Y}\right) &=\frac{\alpha MC}{R^k} \\
+	\left(\frac{I}{Y}\right) &= \delta \left(\frac{K}{Y}\right) \\
+	W&= \frac{1-\alpha}{\alpha}\frac{R^k K}{H} \\
+	Y&=\left(\frac{K}{H}\right)^{\alpha}H
+\end{align*}
+
+\begin{align*}
+	 X  & =\delta^d\left(\frac{\psi }{1-\beta(1-\delta^d)}\right)^{\frac{1}{\sigma^d}} C^{\frac{\sigma}{\sigma^d}} \\
+\end{align*}
+
+\begin{align*}
+	C^{-\sigma} W&=\frac{\epsilon^w}{\epsilon^w-1}\nu H^{\phi} \\
+	\left(\frac{C}{Y}\right)^{-\sigma} W &=\frac{\epsilon^w}{\epsilon^w-1}\nu Y^{\sigma + \phi}\left(\frac{K}{H}\right)^{-\alpha\phi} \\
+\end{align*}
+
+
+\begin{align*}
+	1 &= \frac{C}{Y} + \delta \left(\frac{K}{Y}\right) + (\delta^d)^{-1}\frac{D}{C}\frac{C}{Y} + \frac{G}{Y}
+\end{align*}
+
+Simple solution: set steady state output to 1
+
+
+\section{HANK model}
+
+\subsection{Households}
+
+Utility
+\begin{align*}
+	u(c,d)&=\frac{\left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{(1-\frac{1}{\sigma})\xi}{\xi-1}}}{1-\frac{1}{\sigma}}  \\
+	v(h)&=- \nu \frac{h^{1+\phi}}{1+\phi} 
+\end{align*}
+
+
+Write as Bellman equation
+%\begin{align*}
+%	&V_t(a,d,e) = \max_{c',d',w',x'}\left\{u(c',d') -v(h_t) + \beta E V_{t+1}(a',d',e')\right\} \\
+%	\text{s.t. }& a'=(1+r_{t})a - c' - p_{d,t}[d' - (1-\delta_d)d] +  w h_t e - T_t + \text{profits}_t  \\
+%%	&d'=(1-\delta_d)d + \frac{x'}{p_{d,t}} \\
+%	&a'\ge 0
+%\end{align*}
+%
+\begin{align*}
+	&V_t(a,d,e) = \max_{c',d',w',x'}\left\{u(c',d') -v(h_t) + \beta E V_{t+1}(a',d',e')\right\} \\
+	\text{s.t. }& a' + c' +p_{d,t}d' = coh_t \\
+	&coh_t = (1+r_{t})a  + p_{d,t}(1-\delta_d)d +  w h_t e - T_t + \text{profits}_t  \\
+%	&d'=(1-\delta_d)d + \frac{x'}{p_{d,t}} \\
+	&a'\ge 0
+\end{align*}
+
+FOC:
+\begin{align*}
+	u_c(c,d) &= \beta E V_{a,t+1} \\
+	u_d(c,d) &=  E V_{a,t+1} p_{d,t} - \beta E V_{d,t+1} = \beta  \left(p_{d,t} - \frac{p_{d,{t+1}}(1-\delta_d)}{(1+r_{t+1})}\right) \beta E V_{a,t+1}  \\
+	V_{a,t} &= u_c(c,d) (1+r_t)  \\
+	V_{d,t} &= \frac{p_{d,t}(1-\delta_d)}{(1+r_{t})}V_{a,t} \\
+	\frac{u_d(c,d)}{u_c(c,d)}&=p_{d,t} - \frac{p_{d,{t+1}}(1-\delta_d)}{(1+r_{t+1})}
+\end{align*}
+with
+\begin{align*}
+	\frac{u_d(c,d)}{u_c(c,d)}&=\left(\frac{1-\psi}{\psi}\frac{c_t}{d_t}\right)^{\frac{1}{\xi}} \\
+	u_c(c,d)&= \psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}} \left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}} \\
+%	u_c(c,d)&= (c^psi d^(1-psi))^(1-1/sigma)/(1-1/sigma)
+%	u_{cc}(c,d)&= -\frac{1}{\xi}\psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}-1} \left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}} + \frac{1-\frac{\xi}{\sigma}}{\xi-1}\psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}} \psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}} \left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}-1} \\
+%	u_{cc}(c,d)&= \left[-\frac{1}{\xi}\psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}-1}\left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)  + \frac{1-\frac{\xi}{\sigma}}{\xi-1}\psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}} \psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}} \right]\left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}-1} \\
+%	u_{cc}(c,d)&= \psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}-1}\left[-\frac{1}{\xi}   \left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)  + \frac{1-\frac{\xi}{\sigma}}{\xi-1}\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}}  \right]\left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}-1} \\
+	u_{cc}(c,d)&= -\frac{1}{\xi}\psi^{\frac{1}{\xi}} c^{\frac{-1}{\xi}-1}\left[1     - \frac{\xi(1-\frac{\xi}{\sigma})}{\xi-1}\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}}  \left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{-1} \right]\left(\psi^{\frac{1}{\xi}} c^{\frac{\xi-1}{\xi}} + (1-\psi)^{\frac{1}{\xi}} d^{\frac{\xi-1}{\xi}}\right)^{\frac{1-\frac{\xi}{\sigma}}{\xi-1}} \\
+	u_c(c,d)&= \psi c^{\psi(1-1/\sigma) - 1} d^{(1-\psi)(1-1/\sigma)} \\
+	u_c(c,d)&= \psi * (\psi(1-1/\sigma) - 1) c^{\psi(1-1/\sigma) - 2} d^{(1-\psi)(1-1/\sigma)}
+\end{align*}
+
+Two types, optimizing and rule-of-thumb. Maximization problem for optimizing agent:
+
+
+Constraints:
+\begin{align*}
+	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - C_t + W_t H_t\ -  X_t - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	D_t &=  (1-\delta^d)D_{t-1} + \frac{X_t}{p_t^d} \\
+	A_t + p_t D_t &\ge 0
+\end{align*}
+
+Define wealth as $W_t=A_t+p_t^d D_t$. Then,
+\begin{align*}
+	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - C_t + W_t H_t\-  p_t^d D_t +  (1-\delta^d)p_t^d D_{t-1} - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	W_t &= \frac{R_{t-1}}{\Pi_t}(W_{t-1} - p_{t-1}^d D_{t-1}) - C_t + W_t H_t+  (1-\delta^d)p_t^d D_{t-1} - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	W_t &= \frac{R_{t-1}}{\Pi_t}W_{t-1}  - C_t + W_t H_t  +  [(1-\delta^d)p_t^d - \frac{R_{t-1}}{\Pi_t} p_{t-1}^d]  D_{t-1} - T_t + \text{Profits}_t^k + \text{Profits}_t^f \\
+	W_t &\ge 0
+\end{align*}
+
+FOC for optimizing households (H determined by union problem below):
+\begin{align*}
+	\lambda_t &= MUC_t \\
+	\lambda_t &= \beta \frac{R_t}{\Pi_{t+1}} \lambda_{t+1} + \vartheta_t \\
+	0 &=  MUD_t + \beta [(1-\delta^d)p_{t+1}^d - \frac{R_{t}}{\Pi_{t+1}} p_{t}^d]\lambda_{t+1}\\
+	0 &=  MUD_t +  [(1-\delta^d)p_{t+1}^d - \frac{R_{t}}{\Pi_{t+1}} p_{t}^d] \frac{\Pi_{t+1}}{R_t} (\lambda_t-\vartheta_t)\\
+%	\lambda_t R_t^k   &= \mu_t\delta'(u_t) 
+\end{align*}
+
+
+FOC for rule-of-thumb household:
+\begin{align*}
+	A_t^r&=0 \\
+	C_t^r + X_t^r &= W_t H_t^r - T_t^r
+\end{align*}
+
+Assume that steady-state expenditure ratios are the same,
+\begin{align*}
+	\frac{C^r}{X^r} &= \frac{C^o}{X^o}
+\end{align*}
+
+Dynamically assume set of MPCs out of income:
+\begin{align*}
+	C_t^r - C^r &= mpc^{r,c} [ W_t H_t^r - T_t^r - (W H^r - T^r )] \\
+	X_t^r - X^r &= mpc^{r,x} [ W_t H_t^r - T_t^r - (W H^r - T^r )] \\
+	1&= mpc^{r,c} + mpc^{r,x}
+\end{align*}
+
+
+\subsection{Enodgenous grid}
+\begin{align*}
+	&V_t(a,d,e) = \max_{c',d',w',x'}\left\{u(c',d') -v(h_t) + \beta E V_{t+1}(a',d',e')\right\} \\
+	\text{s.t. }& a' + c' +p_{d,t}d' = coh_t \\
+	&coh_t = (1+r_{t})a  + p_{d,t}(1-\delta_d)d +  w h_t e - T_t + \text{profits}_t  \\
+%	&d'=(1-\delta_d)d + \frac{x'}{p_{d,t}} \\
+	&a'\ge 0
+\end{align*}
+We know:
+\begin{align*}
+	u_c(c',d') &=  \beta E V_{a,t+1}(a',d',e') + \zeta_t \\
+	u_d(c,d) &=  \beta E V_{a,t+1} p_{d,t} + \zeta_t p_{d,t} - \beta E V_{d,t+1} \\
+	&=u_c(c,d) p_{d,t} - \beta E V_{d,t+1} \\
+	&=u_c(c,d) p_{d,t} - p_{d,t+1}\beta E V_{a,t+1}\frac{1-\delta_d}{1+r} \\
+	&=u_c(c,d) p_{d,t} - p_{d,t+1}\beta E u_c(c'',d'')(1-\delta_d) \\
+	V_{a,t} &= u_c(c,d) (1+r_t)  \\
+	V_{d,t} &= V_{a,t} \frac{1-\delta_d}{1+r_t}  \\
+	V_{d,t} &= \frac{p_{d,t}(1-\delta_d)}{(1+r_{t})}V_{a,t} \\
+	\frac{u_d(c,d)}{u_c(c,d)}&=p_{d,t} - \frac{p_{d,{t+1}}(1-\delta_d)}{(1+r_{t+1})}
+\end{align*}
+
+EGM:
+\begin{itemize}
+	\item Given $u_c' = \beta E[V_a(a',d',e')]$, obtain $c^*(u_c'),d^*(u_c')$ from first FOC.
+	\begin{align*}
+		u_c(c,d)&= \psi c^{-1/\sigma} dc^{(1-\psi)(1-1/\sigma)} \\
+	\end{align*}
+\end{itemize}
+
+ 
+
+\end{document}

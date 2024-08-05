@@ -1,0 +1,161 @@
+The graphs below provide a decomposition of the average treatment effect
+into cohort-specific treatment effects.
+
+For example, in our sample of all households we estimate that the rebate
+increased new car spending by an average of \$\scalardCARTKNfullsampletext per household. This is
+an average difference of the change of new car spending for treated versus
+control households. This difference is plotted by date in figure \ref{fig:fullsampled_CARTKNTreatmentbytreat}.
+For August 2008, we estimate that the change in new car spending was \$160.2 [update export]
+above the mean for households that received their rebate in the past 3
+months. For households that did not receive a rebate we estimate that the change
+in their new car spending was \$351.1 [update export] below the mean.
+
+A striking feature of figure \ref{fig:fullsampled_CARTKNTreatmentbytreat} is that the change new car spending is 
+very negative for the control households in August and October. For comparison,
+the average new car spending over three months is \$362 [update export] in our full sample. So these
+control groups imply a huge drop in car spending. We also observe significant
+positive changes in car spending for the treatment group in October, November,
+and December.
+
+Figure \ref{fig:fullsampled_CARTKNWeightsbytreat} shows the associated weights for each cohort-interview date. The
+general shape of these weights is dictated by the relative size of the
+treatment and control group. If they are similarly sized then those observations
+are given more weight.
+
+Figure \ref{fig:fullsampled_CARTKNContributionbytreat} shows the total contribution by multiplying the cohort effects 
+with the weights. Adding up the contributions yields the overall spending
+estimate.
+
+\begin{figure}
+    \caption{Change in New Car Spending: Full Sample} 
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNfullsampleTreatmentbytreat.eps}
+        \caption{Cohort Treatment Effects}
+        \label{fig:fullsampled_CARTKNTreatmentbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNfullsampleWeightsbytreat.eps}
+        \caption{Weights}
+        \label{fig:fullsampled_CARTKNWeightsbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNfullsampleContributionbytreat.eps}
+        \caption{Contributions}
+        \label{fig:fullsampled_CARTKNContributionbytreat}
+      \end{subfigure}
+      \label{fig:fullsampled_CARTKN}
+\end{figure}    
+
+Figure \ref{fig:rebateonlyd_CARTKN} repeats the same exercise for the sample of
+households that report receiving a rebate. In this case the estimated
+change in new car spending is \$\scalardCARTKNrebateonlytext.
+
+\begin{figure}
+    \caption{Change in New Car Spending: Rebate Sample}
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNrebateonlyTreatmentbytreat}
+        \caption{Cohort Treatment Effects}
+        \label{fig:rebateonlyd_CARTKNTreatmentbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNrebateonlyWeightsbytreat}
+        \caption{Weights}
+        \label{fig:rebateonlyd_CARTKNWeightsbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_CARTKNrebateonlyContributionbytreat}
+        \caption{Contributions}
+        \label{fig:rebateonlyd_CARTKNContributionbytreat}
+      \end{subfigure}
+      \label{fig:rebateonlyd_CARTKN}
+\end{figure}    
+
+Figures \ref{fig:fullsampled_TOTEXP2} show the same exercise for total
+expenditure. The treatment effects are \$\scalardTOTEXPfullsampletext 
+for the full sample and \$\scalardTOTEXPrebateonlytext for the rebate only sample.
+
+\begin{figure}
+    \caption{Change in Total Spending: Full Sample}
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2fullsampleTreatmentbytreat.eps}
+        \caption{Cohort Treatment Effects}
+        \label{fig:fullsampled_TOTEXP2Treatmentbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2fullsampleWeightsbytreat.eps}
+        \caption{Weights}
+        \label{fig:fullsampled_TOTEXP2Weightsbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2fullsampleContributionbytreat.eps}
+        \caption{Contributions}
+        \label{fig:fullsampled_TOTEXP2Contributionbytreat}
+      \end{subfigure}
+      \label{fig:fullsampled_TOTEXP2}
+\end{figure}    
+
+
+\begin{figure}
+    \caption{Change in Total Spending: Rebate Sample}
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2rebateonlyTreatmentbytreat.eps}
+        \caption{Cohort Treatment Effects}
+        \label{fig:rebateonlyd_TOTEXP2Treatmentbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2rebateonlyWeightsbytreat.eps}
+        \caption{Weights}
+        \label{fig:rebateonlyd_TOTEXP2Weightsbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_TOTEXP2rebateonlyContributionbytreat.eps}
+        \caption{Contributions}
+        \label{fig:rebateonlyd_TOTEXP2Contributionbytreat}
+      \end{subfigure}
+      \label{fig:rebateonlyd_TOTEXP2}
+\end{figure}    
+
+Figures \ref{fig:fullsampled_NDEXP} show the same exercise for total
+expenditure. The treatment effects are \$\scalardNDEXPfullsampletext 
+for the full sample and \$\scalardNDEXPrebateonlytext  for the rebate only sample.
+
+\begin{figure}
+    \caption{Change in Nondurable Spending: Full Sample}
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPfullsampleTreatmentbytreat.eps}
+        \caption{Cohort Treatment Effects}
+        \label{fig:fullsampled_NDEXPTreatmentbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPfullsampleWeightsbytreat.eps}
+        \caption{Weights}
+        \label{fig:fullsampled_NDEXPWeightsbytreat}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPfullsampleContributionbytreat.eps}
+        \caption{Contributions}
+        \label{fig:fullsampled_NDEXPContributionbytreat}
+      \end{subfigure}
+      \label{fig:fullsampled_NDEXP}
+\end{figure}    
+
+
+\begin{figure}
+    \caption{Change in Nondurable Spending: Rebate Sample}
+    \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPrebateonlyTreatmentbytreat}
+        \caption{Cohort Treatment Effects}
+        \label{fig:rebateonlyd_NDEXPTreatmentbytreat.eps}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPrebateonlyWeightsbytreat}
+        \caption{Weights}
+        \label{fig:rebateonlyd_NDEXPWeightsbytreat.eps}
+      \end{subfigure}\\
+      \begin{subfigure}[t]{\linewidth}
+        \centering\includegraphics[width=0.65\linewidth]{./figures/d_NDEXPrebateonlyContributionbytreat.eps}
+        \caption{Contributions}
+        \label{fig:rebateonlyd_NDEXPContributionbytreat}
+      \end{subfigure}
+      \label{fig:rebateonlyd_NDEXP}
+\end{figure}   

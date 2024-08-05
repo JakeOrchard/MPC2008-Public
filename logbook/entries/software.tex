@@ -1,0 +1,61 @@
+\section{Software}
+
+You should have the following software installed on your computer:
+
+\subsection{Text Editor}
+
+Modern text editors include syntax highlighting, completion, and allow you to execute code interactively. I recommend using a single text editor for use across all code files.
+
+Many choices are available and you should experiment and see what works best for you. Emacs and Vim are classics. I currently use Visual Studio Code, which has an integrated terminal as well excellent extensions for Python, Stata, and Latex.
+
+\subsection{Python}
+
+Python is the primary tool we use to download and clean data before final analysis.
+
+It's two main advantages over Stata are the ability to chain commands in a single line of code and to work on datasets without loading.
+
+You should install:
+\begin{enumerate}
+	\item Anaconda Python distribution.
+	\item With \texttt{conda install PACKAGE} the following pacakges: \texttt{wget, pyarrow}.
+	\item Using \texttt{conda install -c anaconda PACKGE} install \texttt{pandas-datareader}
+	\item Using \texttt{conda install -c conda-forge PACKAGE} install \texttt{linearmodels}.
+	\item General advice is to use \texttt{conda install} whenever possible and minimize the use of \texttt{pip install}. Mixing the two can create complicated dependencies and make it difficult to maintain and update your Anaconda distribution.
+\end{enumerate}
+
+Sometimes executing python from terminal or a shell script will call on an old version of python, rather than Anaconda. If this happens to you try the following:
+\begin{enumerate}
+	\item Type \texttt{echo \$PATH}. If you see \texttt{/opt/anaconda3/bin} towards the end of the path, after \texttt{/usr/local/bin}, then the system finds the old version of python first and executes it.
+	\item To give anaconda preference, run  \texttt{conda init} if you use the bash shell or \texttt{conda init zsh} if you use the zsh shell.
+\end{enumerate}
+
+\subsection{Stata}
+
+Stata is excellent at estimating models and (with user-written commands).
+
+You should install:
+\begin{enumerate}
+	\item The most recent version of Stata SE/MP
+	\item With \texttt{ssc install PACKAGE} the following pacakges: \\ \texttt{esttab, ivreg2, ftools, hdfe, reghdfe, ivreghdfe}
+\end{enumerate}
+
+You will need to run Stata in batch mode. This requires that the Stata executable is stored in your \texttt{\$PATH} variable, which stores all the directories of known executables.
+\begin{enumerate}
+	\item The terminal head will tell you which type of shell you are using. Common are \texttt{bash} and \texttt{zsh}.
+	\item If you use \texttt{bash} type \texttt{nano \$HOME/.bashrc} if \texttt{zsh} type \texttt{nano \$HOME/.zshrc}.
+	\item\label{step:statapath} In the file copy the line \\ \texttt{export PATH="\$PATH:/Applications/Stata/StataSE.app/Contents/MacOS"}.
+	\item Save the file and exit.
+	\item Close all terminal windows, reopen, and verify that that Stats is part of your path by typing \texttt{echo \$PATH}
+\end{enumerate}
+
+Alternatively (MacOS only) you can:
+\begin{enumerate}
+	\item In any directory create a file called ``stata'' using \texttt{nano stata}.
+	\item\label{step:statapath2} Copy the directory path \texttt{/Applications/Stata/StataSE.app/Contents/MacOS} into the file.
+	\item Save and exit.
+	\item In finder, select \texttt{go to folder} and type \texttt{/etc/paths.d}.
+	\item Copy the ``stata'' file into that the \texttt{/etc/paths.d}. You will have to enter your password.
+\end{enumerate}
+
+If you use StataMP or plain Stata, you need to replace StataSE in steps \ref{step:statapath} or \ref{step:statapath2} accordingly.
+

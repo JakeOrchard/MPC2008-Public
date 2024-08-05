@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\section{Valerie's NK Model}
+
+\subsection{Households}
+
+Two types, optimizing and rule-of-thumb. Utility function:
+\begin{align*}
+	U = E_0 \sum_{t=0}^{\infty}\beta^t \left[\ln C_t - \nu \frac{H_t^{1+\phi}}{1+\phi}\right]
+\end{align*}
+
+
+Constraints:
+\begin{align*}
+	A_t &= \frac{R_{t-1}}{\Pi_t}A_{t-1} - C_t + W_t H_t - I_t + R_t^k u_{t} K_{t-1} - T_t \\
+	K_t &=  (1-\delta(u_t))K_{t-1} + I_t \left[1-S\left(\frac{I_t}{I_{t-1}}\right)\right] 
+\end{align*}
+
+FOC for optimizing households (H determined by union problem below):
+\begin{align*}
+	\lambda_t &= \frac{1}{C_t^o} \\
+	\lambda_t &= \beta \frac{R_t}{\Pi_{t+1}} \lambda_{t+1} \\
+	\lambda_t &= \mu_t \left[1-S\left(\frac{I_t^o}{I_{t-1}^o}\right)  -\frac{I_t}{I_{t-1}}S'\left(\frac{I_t^o}{I_{t-1}^o}\right)\right] + \beta \mu_{t+1}\left(\frac{I_{t+1}^o}{I_t^o}\right)^2 S'\left(\frac{I_{t+1}^o}{I_{t}^o}\right)\\
+	\mu_t &= \beta\lambda_{t+1}R_{t+1}^k u_{t+1} + \beta\mu_{t+1}(1-\delta(u_{t+1})) 
+%	\\
+%	\lambda_t R_t^k   &= \mu_t\delta'(u_t) 
+\end{align*}
+
+Tobin's q is 
+\begin{align*}
+	q_t = \mu_t / \lambda_t	
+\end{align*}
+
+
+FOC for rule-of-thumb household:
+\begin{align*}
+	K_t^r=I_t^r=A_t^r&=0 \\
+	C_t^r &= W_t H_t^r - T_t^r
+\end{align*}
+
+
+
+
+
+\subsection{Wages}
+
+Union forces same hours across types:
+\begin{align*}
+	H_t^r = H_t^o = H_t
+\end{align*}
+
+Relative demand if reset at time $t$
+\begin{align*}
+	H_{t+s}^d(j) = H_{t+s}^d \left(\frac{W_{t}(j)(\frac{P_{t+s-1}}{P_{t-1}})^{\chi^w} (\frac{P_t}{P_{t+s}})}{W_{t+s}}\right)^{-\epsilon^w} = H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  W_{t}(j)^{-\epsilon^w}
+\end{align*}
+
+Optimization problem for union:
+\begin{align*}
+	\max_{w_t^*} \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}\left[\tilde{\lambda}_{t+s}\left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{\chi^w}\left(\frac{P_{t+s}}{P_{t}}\right)^{-1}(W_t^*)^{1-\epsilon^w}   - \nu H_{t+s}^{\phi} (W_t^*)^{-\epsilon^w}\right]
+\end{align*}
+where $\tilde{\lambda} = (1-\gamma)\lambda_t^o + \gamma\lambda_t^r$
+
+First order condition:
+\begin{align*}
+	&(\epsilon^w-1)\sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)} \tilde{\lambda}_{t+s}(W_t^*)^{1-\epsilon^w}  \\
+	& = \epsilon^w \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}  (W_t^*)^{-\epsilon^w}
+\end{align*}
+
+
+Write recursively as:
+\begin{align*}
+	F_{1t} & =  \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \nu \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d H_{t+s}^{\phi} W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\epsilon^w\chi^w}   (W_t^*)^{-\epsilon^w} \\
+	& = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} \\
+	&+ \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w}  \nu \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d H_{t+s}^{\phi} W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\epsilon^w\chi^w}   (W_{t+1}^*)^{-\epsilon^w} \\ 
+	& = \nu H_{t}^d H_{t}^{\phi} W_{t}^{\epsilon^w} (W_t^*)^{-\epsilon^w} + \beta\theta^w \Pi_{t+1}^{\epsilon^w} \Pi_{t}^{-\chi^w\epsilon^w}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{-\epsilon^w} F_{1,t+1} \\ 
+\end{align*}
+
+\begin{align*}
+	F_{2t} & =  H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} + \sum_{s=1}^{\infty} (\beta\theta^w)^{s}H_{t+s}^d W_{t+s}^{\epsilon^w} \left(\frac{P_{t+s}}{P_{t}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s-1}}{P_{t-1}}\right)^{-\chi^w(\epsilon^w-1)}\tilde{\lambda}_{t+s}(W_t^*)^{1-\epsilon^w} \\ 
+	& = H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} \\
+	&+ \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)} \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  \sum_{s=0}^{\infty} (\beta\theta^w)^{s}H_{t+1+s}^d W_{t+1+s}^{\epsilon^w} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon^w-1} \left(\frac{P_{t+s}}{P_{t}}\right)^{-\chi^w(\epsilon^w-1)} \tilde{\lambda}_{t+1+s}(W_{t+1}^*)^{1-\epsilon^w} \\ 
+	& = H_{t}^d W_{t}^{\epsilon^w} \tilde{\lambda}_{t}(W_t^*)^{1-\epsilon^w} + \beta\theta^w  \Pi_{t+1}^{\epsilon^w-1} \Pi_{t}^{-\chi^w(\epsilon^w-1)}  \left(\frac{W_t^*}{W_{t+1}^*}\right)^{1-\epsilon^w}  F_{2,t+1} \\ 
+\end{align*}
+and
+\begin{align*}
+	\epsilon^w  F_{1t}=(\epsilon^w-1)F_{2t}
+\end{align*}
+
+Wage distortion (labor supply higher than demand)
+\begin{align*}
+	H_t &= s_t^w H_t^d \\
+\end{align*}
+
+\begin{align*}
+	s_t^w &= \int_0^1 \left(\frac{W_{t}(i)}{W_t}\right)^{-\epsilon^w}di \\
+	&= (1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta^w \int_0^1   \left(\frac{W_{t-1}(i)\frac{P_{t-1}}{P_t}}{W_t}\right)^{-\epsilon^w}di \\
+	&=(1-\theta^w)\left(\frac{W_t^*}{W_t}\right)^{-\epsilon^w} + \theta \left(\frac{W_{t-1}}{W_t}\right)^{-\epsilon^w}\Pi_t^{\epsilon^w} s_{t-1}^w \\
+\end{align*}
+
+
+\subsection{Production}
+
+Production function
+\begin{align*}
+	s_t Y_t = A_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha}
+\end{align*}
+
+Cost minimization
+\begin{align*}
+	&\min R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+	&\text{s.t. } A_t (u_t K_{t-1})^{\alpha} (H_t^d)^{1-\alpha} = s_t Y_t
+\end{align*}
+
+FOC:
+\begin{align*}
+	R_{t}^k &= \zeta_t \alpha \frac{s_t Y_t}{u_t K_{t-1}} \\
+	W_t &= \zeta_t (1-\alpha) \frac{s_t Y_t}{H_t^d}
+\end{align*}
+
+Optimal capital-labor ratio:
+\begin{align*}
+	\frac{u_t K_{t-1}}{H_t^d} &= \frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}
+\end{align*}
+
+Implied total cost:
+\begin{align*}
+	TC_t &= R_{t}^k u_t K_{t-1} + W_t H_t^d \\
+	&=R_{t}^k \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{1-\alpha} \frac{s_t Y_t}{A_t} + W_t \left(\frac{\alpha}{1-\alpha}\frac{W_t}{R_{t}^k}\right)^{-\alpha}\frac{s_t Y_t}{A_t} \\
+	&=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{s_t Y_t}{A_t} 
+\end{align*}
+
+Marginal Cost:
+\begin{align*}
+	MC_t &=\alpha^{-\alpha} (1-\alpha)^{-(1-\alpha)} (R_{t}^k)^{\alpha}W_t^{1-\alpha}\frac{1}{A_t} 
+\end{align*}
+
+\subsection{Prices}
+
+Price setting problem for sticky price firm:
+\begin{align*}
+	\max_{p_t^*} \sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left[(p_t^*)^{1-\epsilon} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  - MC_{t+s} (p_t^*)^{-\epsilon}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon}\right]
+\end{align*}
+
+FOC:
+%\begin{align*}
+%	p_t^* &= \frac{\epsilon}{\epsilon-1}\frac{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} }{\sum_{s=0}^{\infty} \lambda_{t+s}\theta^{s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1} Y_{t+s} }
+%\end{align*}
+\begin{align*}
+	\epsilon\sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s} Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} (p_t^*)^{-\epsilon-1} 
+	&=(\epsilon-1)\sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon} 
+\end{align*}
+
+Write recursively as:
+\begin{align*}
+	X_{1t} & =  Y_t MC_{t} (p_t^*)^{-\epsilon-1} + \sum_{s=1}^{\infty}\beta^s \left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s} \left(\frac{P_{t+s}}{P_t}\right)^{\epsilon} MC_{t+s} (p_t^*)^{-\epsilon-1} \\ 
+	& = Y_{t} MC_{t} (p_t^*)^{-\epsilon-1} \\
+	&+ \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  \sum_{s=0}^{\infty}\beta^s \left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon} MC_{t+1+s} (p_{t+1}^*)^{-\epsilon-1} \\ 
+	& = Y_{t} MC_{t} (p_t^*)^{-\epsilon-1} + \beta\theta  \left(\frac{\lambda_{t+1}}{\lambda_{t}}\right)\left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon-1}  X_{1,t+1} \\ 
+\end{align*}
+
+\begin{align*}
+	X_{2t} & =  Y_t  (p_t^*)^{-\epsilon} + \sum_{s=1}^{\infty} \beta^s\left(\frac{\lambda_{t+s}}{\lambda_t}\right)\theta^{s}Y_{t+s}\left(\frac{P_{t+s}}{P_t}\right)^{\epsilon-1}  (p_t^*)^{-\epsilon}  \\ 
+	& =  Y_{t} (p_t^*)^{-\epsilon} \\
+	& + \beta\theta \left(\frac{\lambda_{t+1}}{\lambda_t}\right)  \left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  \sum_{s=0}^{\infty} \beta^s\left(\frac{\lambda_{t+1+s}}{\lambda_{t+1}}\right)\theta^{s} Y_{t+s+1} \left(\frac{P_{t+1+s}}{P_{t+1}}\right)^{\epsilon-1} (p_{t+1}^*)^{-\epsilon} \\ 
+	& =  Y_{t} (p_t^*)^{-\epsilon} + \beta\theta  \left(\frac{\lambda_{t+1}}{\lambda_{t}}\right)\left(\frac{P_{t+1}}{P_{t}}\right)^{\epsilon-1} \left(\frac{p_t^*}{p_{t+1}^*}\right)^{-\epsilon}  X_{2,t+1} \\ 
+\end{align*}
+and
+\begin{align*}
+	\epsilon  X_{1t}=(\epsilon-1)X_{2t}
+\end{align*}
+
+
+Aggregate Prices and inflation:
+\begin{align*}
+	P_t^{1-\epsilon} &= (1-\theta)(P_{t}^*)^{1-\epsilon} + \theta P_{t-1}^{1-\epsilon} \\
+	1 &= (1-\theta)(p_{t}^*)^{1-\epsilon} + \theta \Pi_{t}^{-(1-\epsilon)} \\
+\end{align*}
+
+Output distortion
+\begin{align*}
+	s_t &= \int_0^1 \left(\frac{P_{t}(i)}{P_t}\right)^{-\epsilon}di \\
+	&= (1-\theta)(p_t^*)^{-\epsilon} + \theta \int_0^1   \left(\frac{P_{t-1}(i)}{P_t}\right)^{-\epsilon}di \\
+	&=(1-\theta)(p_t^*)^{-\epsilon} + \theta \Pi_t^{\epsilon} s_{t-1} \\
+\end{align*}
+
+
+\subsection{Government}
+
+Interest rate rule
+\begin{align*}
+	R_t &= (1-\rho_r)R_{t-1} + \rho_r\left[R + \phi_\pi(\Pi_t-\bar{\Pi}) + \phi_y\left(\frac{Y_t}{\bar{Y}}-1\right)\right]
+\end{align*}
+
+Budget constraint
+\begin{align*}
+	B_t &= \frac{R_{t-1}}{\Pi_t}B_{t-1} + G_t - T_t
+\end{align*}
+
+
+Budget rule:
+\begin{align*}
+	T_t &= T + \phi_b(B_{t-k}-\bar{B}) - \epsilon_t
+\end{align*}
+
+Assume same transfers:
+\begin{align*}
+	T_t^r = T_t^o
+\end{align*}
+
+\subsection{Market Clearing}
+
+Aggregates:
+\begin{align*}
+	C_t &= (1-\gamma) C_t^o + \gamma C_t^r \\
+	H_t &= (1-\gamma) H_t^o + \gamma H_t^r \\
+	I_t &= (1-\gamma) I_t^o + \gamma I_t^r \\
+	K_t &= (1-\gamma) K_t^o + \gamma K_t^r \\
+	A_t &= (1-\gamma) A_t^o + \gamma A_t^r \\
+	T_t &= (1-\gamma) T_t^o + \gamma T_t^r \\
+\end{align*}
+
+Goods market
+\begin{align*}
+	Y_t &= C_t + I_t + G_t
+\end{align*}
+
+
+\subsection{Functional Forms}
+
+\begin{align*}
+	\delta(u_t) &= \delta_0 + \delta_1 (u_t-1) + \delta_2 (u_t-1)^2 \\
+	S\left(\frac{I_t}{I_{t-1}}\right) &=\frac{\kappa}{2}\left(\frac{I_t}{I_{t-1}}-1\right)^{2}
+\end{align*}
+
+
+\end{document}

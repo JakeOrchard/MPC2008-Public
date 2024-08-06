@@ -27,7 +27,7 @@ interviews['EVER'] = 1
 
 interviews = interviews.unstack().fillna(0)
 print(interviews)
-interviews.columns = [ 'EVER INT 1', 'EVER INT 2','EVER INT 3','EVER INT 4','EVER INT 5']
+interviews.columns = [ 'EVER INT 2','EVER INT 3','EVER INT 4','EVER INT 5']
 
 
 # merge characteristics:

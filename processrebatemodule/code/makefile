@@ -7,8 +7,7 @@ folders := ../input ../output
 input= \
 		../input/rbt.parquet \
 		../input/fmliquarterly.parquet \
-		../input/mtbimonthly.parquet \
-		../input/TAX.parquet 
+		../input/mtbimonthly.parquet
 
 # This generates the list of processed data files	
 output= \

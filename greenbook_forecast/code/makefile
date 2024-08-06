@@ -8,8 +8,7 @@ input =
 
 output=  ../output/greenbook_rpce.dta \
 		../output/greenbook_fore_2008.pdf \
-		../output/greenbook08.dta \
-		../output/greenbook01.dta \
+		../output/greenbook08.dta 
 		 
 
 # Recipes

@@ -53,9 +53,10 @@ for expenditure_frequency in ['monthly', 'interview']:
         timeshift = 1           # expenditures are one month apart
         
         # set index to household ID and expenditure month
-        indexset = ['CUID', 'NEWID', timevar, 'INTDATE']
-        df = dfmtbi.reset_index().set_index(indexset) 
-
+        indexdiff = ['CUID', timevar]
+        indexadd = ['NEWID', 'INTDATE']
+        indexorder = ['CUID', 'NEWID', timevar, 'INTDATE']
+        df = dfmtbi.reset_index().set_index(indexdiff) 
 
     # for interview level we aggregate and merge interview date
     elif expenditure_frequency=='interview':   
@@ -63,8 +64,11 @@ for expenditure_frequency in ['monthly', 'interview']:
         timeshift = 3           # interviews are three months apart
 
         # aggregate to interview level 
-        indexset = ['CUID', 'NEWID', timevar]
-        df = dfmtbi.groupby(indexset).sum()
+        indexdiff = ['CUID', timevar]
+        indexorder = ['CUID', 'NEWID', timevar]
+        df = dfmtbi.groupby(indexorder).sum()
+        df = df.reset_index().set_index(indexdiff)
+
 
 
     # create log of each expenditure variable
@@ -81,7 +85,7 @@ for expenditure_frequency in ['monthly', 'interview']:
 
     # shift columns by timeshift periods of frequency timefreq
     dfshift = dfshift.groupby('CUID').shift(periods=timeshift, freq=timefreq)
-    dfshift = dfshift.reset_index().set_index(indexset)
+    dfshift = dfshift.reset_index().set_index(indexdiff)
 
     # substract shifted data to create difference (must be on same index again)
     dfdiff = df[vars_to_difference] - dfshift[vars_to_difference]
@@ -93,6 +97,7 @@ for expenditure_frequency in ['monthly', 'interview']:
     # # merge with the original dataset keeping only the row observations we had originally
     df = df.merge(dfdiff, how='left', left_index=True, right_index=True)
     df = df.merge(dflag, how='left', left_index=True, right_index=True)
+    df = df.reset_index().set_index(indexorder)
     
     df.to_parquet('../output/psmjexpenditures' + expenditure_frequency + '.parquet')
     print(str(df.shape[0])) # There are 234789 in 2007-2009 sample and 249188 in the trimmed 1996-2019 sample
@@ -103,7 +108,7 @@ for expenditure_frequency in ['monthly', 'interview']:
 # ------------------------------------------------------------------------
 if __name__=='__main__':
     df = pd.read_parquet('../output/psmjexpendituresmonthly.parquet', columns = keep_variables_all)
-    df = df.groupby(['CUID', 'NEWID']).sum()    
+    df = df.reset_index().groupby(['CUID', 'NEWID']).sum()    
 
     dfint = pd.read_parquet('../output/psmjexpendituresinterview.parquet', columns = keep_variables_all)
     dfint = dfint.add_suffix('_int')

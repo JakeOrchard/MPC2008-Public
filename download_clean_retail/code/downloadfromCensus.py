@@ -52,7 +52,7 @@ for i in range(1992,max_year):
 
 #%%
 #Convert months to date-time
-df_clean[['m','year']]=df_clean['month'].str.split(r"\s", n=-1,expand=True)
+df_clean[['m','year']]=df_clean['month'].str.split(r"\s", n=-1,expand=True)[[0,1]]
 maxstring = str(max_year) 
 maxstringp = maxstring + "(p)"
 df_clean['year'][df_clean['year'] == maxstringp] = maxstring 

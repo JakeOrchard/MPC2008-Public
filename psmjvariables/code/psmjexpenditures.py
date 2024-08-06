@@ -54,7 +54,6 @@ for expenditure_frequency in ['monthly', 'interview']:
         
         # set index to household ID and expenditure month
         indexdiff = ['CUID', timevar]
-        indexadd = ['NEWID', 'INTDATE']
         indexorder = ['CUID', 'NEWID', timevar, 'INTDATE']
         df = dfmtbi.reset_index().set_index(indexdiff) 
 
@@ -78,8 +77,9 @@ for expenditure_frequency in ['monthly', 'interview']:
     df = df.merge(dflog.add_prefix('l_'), how='inner', left_index=True, right_index=True)
 
     # next set of lines first difference the data
-    vars_to_difference = df.columns 
-
+    # vars_to_difference = df.columns 
+    vars_to_difference = list(set(df.columns).difference(set(['CUID', 'NEWID', 'INTDATE', 'DATE'])))
+    
     # have date as sole index so we can use differences
     dfshift = df[vars_to_difference].reset_index().set_index(timevar)
 

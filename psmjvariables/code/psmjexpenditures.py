@@ -79,6 +79,7 @@ for expenditure_frequency in ['monthly', 'interview']:
 
     # shift columns by timeshift periods of frequency timefreq
     dfshift = dfshift.groupby('CUID').shift(periods=timeshift, freq=timefreq)
+    dfshift = dfshift.reset_index().set_index(['CUID', 'NEWID', timevar, 'INTDATE'])
 
     # substract shifted data to create difference (must be on same index again)
     dfdiff = df[vars_to_difference] - dfshift[vars_to_difference]
@@ -90,7 +91,6 @@ for expenditure_frequency in ['monthly', 'interview']:
     # # merge with the original dataset keeping only the row observations we had originally
     df = df.merge(dfdiff, how='left', left_index=True, right_index=True)
     df = df.merge(dflag, how='left', left_index=True, right_index=True)
-    df = df.drop(columns = ['LAG_CUID','LAG_NEWID'])
     
     df.to_parquet('../output/psmjexpenditures' + expenditure_frequency + '.parquet')
     print(str(df.shape[0])) # There are 234789 in 2007-2009 sample and 249188 in the trimmed 1996-2019 sample

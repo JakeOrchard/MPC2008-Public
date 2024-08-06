@@ -53,7 +53,8 @@ for expenditure_frequency in ['monthly', 'interview']:
         timeshift = 1           # expenditures are one month apart
         
         # set index to household ID and expenditure month
-        df = dfmtbi.reset_index().set_index(['CUID', 'NEWID', timevar, 'INTDATE']) 
+        indexset = ['CUID', 'NEWID', timevar, 'INTDATE']
+        df = dfmtbi.reset_index().set_index(indexset) 
 
 
     # for interview level we aggregate and merge interview date
@@ -62,7 +63,8 @@ for expenditure_frequency in ['monthly', 'interview']:
         timeshift = 3           # interviews are three months apart
 
         # aggregate to interview level 
-        df = dfmtbi.groupby(['CUID', 'NEWID', timevar]).sum()
+        indexset = ['CUID', 'NEWID', timevar]
+        df = dfmtbi.groupby(indexset).sum()
 
 
     # create log of each expenditure variable
@@ -79,7 +81,7 @@ for expenditure_frequency in ['monthly', 'interview']:
 
     # shift columns by timeshift periods of frequency timefreq
     dfshift = dfshift.groupby('CUID').shift(periods=timeshift, freq=timefreq)
-    dfshift = dfshift.reset_index().set_index(['CUID', 'NEWID', timevar, 'INTDATE'])
+    dfshift = dfshift.reset_index().set_index(indexset)
 
     # substract shifted data to create difference (must be on same index again)
     dfdiff = df[vars_to_difference] - dfshift[vars_to_difference]

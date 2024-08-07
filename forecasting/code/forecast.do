@@ -320,7 +320,7 @@ local var lrcons
   graph export ../output/fig_forecasts_cons.eps, replace
   
   local var lrcons
-	tw (scatter `var' `var'forA  `var'lc2forA `var'hc2forA  mdate )///
+	tw scatter `var' `var'forA  `var'lc2forA `var'hc2forA  mdate ///
 	if mdate>=m(2008m1) & mdate<=m(2008m12), clc(black red  red red) ///
   c(l l l l l l) clp(l l - - -) ms(i i i i i i) clw(medthick medthick medthick medthick medthick) ///
   xlabel(, valuelabel) xtitle(Forecast) ytitle("billions of $, monthly rate")  ylabel(810(10)850) ///

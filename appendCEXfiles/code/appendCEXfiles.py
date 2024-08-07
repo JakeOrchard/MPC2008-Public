@@ -29,7 +29,7 @@ def find(pattern, path):
 #%% 
 # for each file type we find the files starting with the pattern in square 
 # brackets 
-for filetype in ["fmli", "mtbi", "rbt", "TAX"]:
+for filetype in ["fmli", "mtbi", "rbt"]:
 
     # find files of the type that end with 2,3,4, or x
     # this excludes the first quarter files without x

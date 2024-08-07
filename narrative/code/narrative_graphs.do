@@ -27,7 +27,7 @@ capture log close
 
 set scheme s1color
 
-local yearlist `"2008" "2001"'
+local yearlist `"2008"'
 
 ********************************************************************************
 * I.  READ IN DATA, CREATE REAL AND MONTHLY BASIS VARIABLES
@@ -61,7 +61,7 @@ foreach year in "`yearlist'"{
 	  gen r`var' = n`var'*r(mean)/pcons  /*real, using Jan 2008 base of 93.307*/
 	}
 	
-	foreach var in cnd csv cdur cndsv cnrg {
+	foreach var in cnd csv cdur cnrg {
 	  replace n`var' = n`var'/12 /*put on monthly actual basis*/
 	  gen r`var' = n`var'*100/p`var'  /*real*/
 	}
@@ -89,14 +89,6 @@ foreach year in "`yearlist'"{
 		clc(dknavy) mc(dknavy) xtitle("month") name(rebate) scale(1.2) ysize(4) xsize(7)
 		   
 		   graph export ../output/fig_rebates`yearlabel'.eps, replace 
-	
-	if "`year'" == "2001"{
-		   tw (scatter nrebate mdate, c(l ) clp(l ) ms(d ) clw(medthick ) clc(dknavy) mc(dknavy)  yaxis(1) ylabel(0 5 10 15 20 25, axis(1))) (scatter ndisp_income mdate, c(l ) clp(l ) ms(d ) clw(medthick ) clc(green) mc(green) yaxis(2) ylabel(640 645 650 655 660 665, axis(2))) if `graphrangerebate', ///
-		ytitle("rebate, billions of $", axis(1)) ytitle("disposable income, billions of $", axis(1)) ///
-		 xtitle("month") name(rebate_ndisp) scale(1.2) ysize(4) xsize(7)
-		   
-		   graph export ../output/fig_rebate_ndisp`yearlabel'.eps, replace 
-	}
 
 	* B. DISPOSABLE INCOME AND CONSUMPTION GRAPHS - COMBINED REAL AND NOMINAL
 
@@ -122,12 +114,6 @@ foreach year in "`yearlist'"{
 		local min_ncons = 808
 		local max_ncons = `min_ncons' + `axissize'
 		local min_nconsscale = 810
-	      }
-	      if "`year'" == "2001"{
-		local min_ncons = 560
-		local max_ncons = `min_ncons' + `axissize'
-		local min_nconsscale = 560
-		
 	      }
 	      
 	   
@@ -158,18 +144,7 @@ foreach year in "`yearlist'"{
 			legend(cols(1) ring(0) position(2)) ///
 			xtitle("Month") ysize(4) xsize(6) scale(1) name(rycons_combo)  
 		}
-		 if "`year'" == "2001"{
-		 	tw (scatter rcons mdate if `graphrangeincome', c(l) clp(-) clw(thick) ms(i) clc(blue) mc(blue) ///
-			yaxis(1) ylabel(570 580 590 600 610, axis(1)) ) ///
-			(scatter rdisp_income mdate if `graphrangeincome', yaxis(2) c(l) clp(l) clw(medthick) ms(i) clc(green) mc(green) ///
-			ylabel(630 640 650 660 670, axis(2))) ///
-			if `graphrangeincome', ///
-			xline(`rebatebegin', lp(-) lc(red)) ///
-			legend(cols(1) ring(0) position(2)) ///
-			xtitle("Month") ysize(4) xsize(5) scale(1) name(rycons_combo)  
-			
-			
-		 }
+
 			graph export ../output/fig_cy_pres`yearlabel'.eps, replace
 			
 		
@@ -199,21 +174,6 @@ foreach year in "`yearlist'"{
 
 	  graph export ../output/fig_pce_type`yearlabel'.eps, replace
 	  
-	  if "`year'" == "2001"{
-		 	tw (scatter rcndur_jpscat mdate if `graphrangeincome', c(l) clp(-) clw(thick) ms(i) clc(blue) mc(blue) ///
-			yaxis(1) ylabel(300 310 320 330 340, axis(1)) ) ///
-			(scatter rdisp_income mdate if `graphrangeincome', yaxis(2) c(l) clp(l) clw(medthick) ms(i) clc(green) mc(green) ///
-			ylabel(630 640 650 660 670, axis(2))) ///
-			if `graphrangeincome', ///
-			xline(`rebatebegin', lp(-) lc(red)) ///
-			legend(cols(1) ring(0) position(2)) ///
-			xtitle("Month") ysize(4) xsize(5) scale(1) name(rycjps_combo)  
-			
-			graph export ../output/fig_jpscy_pres`yearlabel'.eps, replace
-			
-			
-			
-		 }
 			
 
 	* D. CONSUMER PRICE INDEX GRAPHS

@@ -10,8 +10,7 @@ input=../input/cexdownload.zip
 output= \
 		../output/fmli.parquet \
 		../output/mtbi.parquet \
-		../output/rbt.parquet \
-		../output/TAX.parquet
+		../output/rbt.parquet
 
 
 
@@ -27,5 +26,5 @@ $(folders):
 	if [ -e ../../downloaddata/output/$(@F) ] ; then ln -s ../../downloaddata/output/$(@F) $@ ; else exit 1; fi	
 
 # this is the recipe that creates the zip file with cex data  --downloadopt ../input/cexdownloadoptions.yml
-../output/fmli.parquet ../output/mtbi.parquet ../output/rbt.parquet: appendCEXfiles.py ../input/cexdownload.zip
+$(output): appendCEXfiles.py ../input/cexdownload.zip
 	python appendCEXfiles.py

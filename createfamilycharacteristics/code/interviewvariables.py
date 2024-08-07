@@ -78,6 +78,7 @@ fmli_numeric = fmli_numeric.reset_index().set_index('INTDATE')
 # shift numeric columns (commented code is much slower)
 # fmli_shifted = fmli_numeric.unstack().shift(periods=timeshift, freq=timefreq).stack()
 fmli_shifted = fmli_numeric.groupby('CUID').shift(periods=timeshift, freq=timefreq)
+fmli_shifted = fmli_shifted.reset_index().set_index(['CUID','INTDATE'])
 
 # substract shifted data to create difference (must be on same index again)
 fmli_numeric = fmli_numeric.reset_index().set_index(['CUID','INTDATE'])

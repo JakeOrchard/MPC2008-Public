@@ -63,20 +63,14 @@ foreach frequency in "interview" "monthly"     { //
     // Label variables
     label variable rbtamt "Rebate Amount"
     label variable rbtindicator "Rebate Indicator"
-    label variable rbt01amt "Rebate Amount"
-    label variable rbt01indicator "Rebate Indicator"
 	
 	forvalues jj=1(1)2 {
 		label variable lag`jj'rbtamt "Lag `jj' Rebate Amount"
 		label variable lag`jj'rbtindicator "Lag `jj' Rebate Indicator"
-		label variable lag`jj'rbt01amt "Lag `jj' Rebate Amount"
-		label variable lag`jj'rbt01indicator "Lag `jj' Rebate Indicator"
 	}
 	forvalues jj=1(1)1 {
 		label variable lead`jj'rbtamt "Lead `jj' Rebate Amount"
 		label variable lead`jj'rbtindicator "Lead `jj' Rebate Indicator"
-		label variable lead`jj'rbt01amt "Lead `jj' Rebate Amount"
-		label variable lead`jj'rbt01indicator "Lead `jj' Rebate Indicator"
 	}
 	
 

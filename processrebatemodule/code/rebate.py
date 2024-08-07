@@ -243,13 +243,13 @@ for frequency, timevar in {'monthly': 'DATE', 'interview': 'INTDATE', 'cuid': ''
 
         # testing rebate construction
         if frequency =='interview': 
-            assert dfagg.loc[pd.IndexSlice[186068,'2008-09-01'],'LAG1RBT INDICATOR'].all()
-            assert dfagg.loc[pd.IndexSlice[186068,'2008-03-01'],'LEAD1RBT INDICATOR'].all()
-            assert dfagg.loc[pd.IndexSlice[186068,'2007-12-01'],'LAG1RBT INDICATOR'].all()==False
+            assert dfagg.loc[pd.IndexSlice[186068,'2008-09-01'],'LAG1RBT INDICATOR']
+            assert dfagg.loc[pd.IndexSlice[186068,'2008-03-01'],'LEAD1RBT INDICATOR']
+            assert dfagg.loc[pd.IndexSlice[186068,'2007-12-01'],'LAG1RBT INDICATOR']==False
         if frequency =='monthly': 
-            assert dfagg.loc[pd.IndexSlice[186068,'2008-06-01'],'LAG1RBT INDICATOR'].all()
-            assert dfagg.loc[pd.IndexSlice[186068,'2008-04-01'],'LEAD1RBT INDICATOR'].all()
-            assert dfagg.loc[pd.IndexSlice[186068,'2008-02-01'],'LAG1RBT INDICATOR'].all()==False   
+            assert dfagg.loc[pd.IndexSlice[186068,'2008-06-01'],'LAG1RBT INDICATOR']
+            assert dfagg.loc[pd.IndexSlice[186068,'2008-04-01'],'LEAD1RBT INDICATOR']
+            assert dfagg.loc[pd.IndexSlice[186068,'2008-02-01'],'LAG1RBT INDICATOR']==False   
        
         
                      

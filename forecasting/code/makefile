@@ -7,6 +7,7 @@ folders := ../input ../output
 input= ../input/clean_michigan_small.dta \
 		../input/auxiliary_forecasting_data.csv\
 		../input/rebates.csv \
+		../input/JPS_consumption_rebate.xlsx
 
 
 # This generates the list of processed data files	
@@ -24,7 +25,7 @@ $(folders):
 ../input/clean_michigan_small.dta: | ../input
 	if [ -e ../../michigan_survey/output/$(@F) ] ; then ln -s ../../michigan_survey/output/$(@F) $@ ; else exit 1; fi	
 
-../input/auxiliary_forecasting_data.csv	../input/rebates.csv: | ../input
+../input/auxiliary_forecasting_data.csv	../input/rebates.csv ../input/JPS_consumption_rebate.xlsx: | ../input
 	if [ -e ../../external_data/$(@F) ] ; then ln -s ../../external_data/$(@F) $@ ; else exit 1; fi	
 
 

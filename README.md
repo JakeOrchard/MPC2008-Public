@@ -15,7 +15,7 @@ Orchard, Jacob, Valerie A. Ramey, and Johannes F. Wieland. Micro MPCs and macro 
 
 You will need your own FREDKEY and BEA keys to download the source data. Place the FREDKEY in line 34 of `MPC/forecasting/code/build_forecast_data.do` and place the BEA key in line 14 of `MPC/downloaddata/code/pcefromBEA.py`. 
 
-We used STATA version 16.1 and Python 3.9 to run this project.
+We used STATA version 16.1 and Python 3.11 to run this project.
 
 ### UNIX and MAC users
 UNIX and MAC users can run the entire project using `make`. Simply type the following three commands in a terminal and the project will build from scratch. 
@@ -26,9 +26,17 @@ UNIX and MAC users can run the entire project using `make`. Simply type the foll
 
 (3) `make`
 
+Once `make` executes successfully, the paper figures and tables are available in the folder `_finaltablesandfigures/output`.
+
+The Monte Carlo simulations take XX hours to complete so we do not include them as part of the baseline replication flow. To run the Monte Carlo simulations separately type:
+
+(4) `. venv/bin/activate && make -C montecarlo/code`
+
+The Monte Carlo figures will be produced in the folder `montecarlo/output`.
+
 # Order of Tasks to Create Final output
 
-This project is divided into a series of subfolders that execute all of the tasks leading to final output beginning with downloaddata and ending with _finaltablesandfigures. Each subfolder contains both a code directory and, once-executed,  input and output directories. The input directory will have symbolic links to output from previous tasks, while the output directroy will include all of the output used by subsequent tasks or used in the final project. 
+This project is divided into a series of subfolders that execute all of the tasks leading to final output beginning with downloaddata and ending with _finaltablesandfigures. Each subfolder contains both a code directory and, once-executed,  input and output directories. The `makefile` in the code folder documents how the inputs are converted in the outputs for the task. The input directory will have symbolic links to output from previous tasks, while the output directroy will include all of the output used by subsequent tasks. 
 
 The makefile, "make" in the main folder shows the order of execution of the subfolders. The final output for the paper is mostly created in the forecasting, psmjregressions, model, and narrative subfolders. 
 
@@ -68,7 +76,7 @@ There are a number of ways to install make on windows. We've tried most and woul
 
 This is completely optional, but Visual Studio Code (VScode) integrates well with git, git bash, and python. [You can download it here.](https://code.visualstudio.com/download)
 
-There is a git extension on visual studio called [Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) that you can download via the extension manager. Git has a bit of a steep learning curve, and git lens allows you to see what git is doing in a GUI rather than having to push and pull via the command line. 
+There is a git extension on Visual Studio called [Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) that you can download via the extension manager. Git has a bit of a steep learning curve, and git lens allows you to see what git is doing in a GUI rather than having to push and pull via the command line. 
 
 ## Setting up the project
 

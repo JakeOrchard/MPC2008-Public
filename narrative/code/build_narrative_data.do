@@ -95,53 +95,6 @@ label var expected_infl_umich "U of Michigan Inflation Expectations"
 label var nrebate "nominal rebate"
 
 ********************************************************************************
-* II. CREATE NONDUR + SERVICES CONSUMPTION DEFLATOR USING WHELAN'S METHOD
-********************************************************************************
-gen ncndsv = ncnd + ncsv
-
-gen rcnd = 100*ncnd/pcnd
-gen rcsv = 100*ncsv/pcsv
-
-gen chain_curr_p = (rcnd*pcnd + rcsv*pcsv)/(L.rcnd*pcnd + L.rcsv*pcsv)
-gen chain_lag_p = (rcnd*L.pcnd + rcsv*L.pcsv)/(L.rcnd*L.pcnd + L.rcsv*L.pcsv)
-
-gen rcndsv = ncndsv if mdate==m(2012m7) /* Current BEA is in 2012 $ */
-
-*dynamically generate values after 2012m7
-replace rcndsv = L.rcndsv*sqrt(chain_curr_p*chain_lag_p) if mdate>m(2012m7)
-
-*dynamically generate values before 2012m7, must be done manually b/c Stata gen only goes forward
-gen t = _n
-
-summ t if mdate==m(2012m7)
-
-local t_base = r(mean)
-
-gen backwardt = `t_base' - t
-
-forvalues i = 1/`t_base' {
-	
-	replace rcndsv = F.rcndsv/sqrt(F.chain_curr_p*F.chain_lag_p) if backwardt == `i'
-
-}
-
-gen pcndsv = 100*ncndsv/rcndsv /* Create chained deflator */
-
-label var ncndsv "nominal nondurable + services consumption expenditures"
-label var pcndsv "price deflator for nondurables + services consumption expenditures"
-
-drop rcnd rcsv rcndsv /* we will create them later with other similar variables */
-
-********************************************************************************
-* III. MERGE JPS TOTALS
-********************************************************************************
-
-merge 1:1 mdate using ../input/cndur_jpscat.dta, nogenerate
-
-label var ncndur_jpscat "JPS Nondurable Expenditures"
-label var rcndur_jpscat "Real JPS Nondurable Expenditures"
-
-********************************************************************************
 * IV. SAVE DATA
 ********************************************************************************
 

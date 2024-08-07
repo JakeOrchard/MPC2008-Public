@@ -47,6 +47,3 @@
 ../../psmjregressions/output/motorvehicle_eventstudy.pdf
 ../../descriptive_stats/output/interview_randomness.tex
 ../../psmjregressions/output/table_randomtest_d_pce.tex
-../../montecarlo/output/all_ffA.eps
-../../montecarlo/output/all_ffB.eps
-../../montecarlo/output/all_ffC.eps

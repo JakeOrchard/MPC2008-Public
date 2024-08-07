@@ -28,9 +28,9 @@ UNIX and MAC users can run the entire project using `make`. Simply type the foll
 
 Once `make` executes successfully, the paper figures and tables are available in the folder `_finaltablesandfigures/output`.
 
-The Monte Carlo simulations take XX hours to complete so we do not include them as part of the baseline replication flow. To run the Monte Carlo simulations separately type:
+The Monte Carlo simulations take XX hours to complete so we do not include them as part of the baseline replication flow. To run the Monte Carlo simulations execute this command:
 
-(4) `. venv/bin/activate && make -C montecarlo/code`
+(4) `make montecarlo`
 
 The Monte Carlo figures will be produced in the folder `montecarlo/output`.
 

@@ -25,8 +25,10 @@ all:
 	. venv/bin/activate && make -C relativepriceofautos/code
 	. venv/bin/activate && make -C narrative/code
 	. venv/bin/activate && make -C model/code
-	. venv/bin/activate && make -C montecarlo/code
 	. venv/bin/activate && make -C _finaltablesandfigures/code
+
+montecarlo: all
+	. venv/bin/activate && make -C montecarlo/code
 
 # virtual environment
 install: venv

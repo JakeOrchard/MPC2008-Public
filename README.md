@@ -38,6 +38,8 @@ The Monte Carlo figures will be produced in the folder `montecarlo/output`.
 
 An archived version of the data used to produce the main empirical regression tables (Tables 3-5) is stored in psmjregressions/output/archiveinteriew.zip. After unzipping the file, the main regression tables can be reproduced using Table_E1.do (table 3), Table_bias.do (Table 4), and Table_E2.do (Table 5). All of those do files are stored in psmjregressions/code.
 
+For non-STATA users, a csv of the regression dataset is stored in psmjregressions/output/psmjsampleinteriew_wlabels.csv.
+
 # Order of Tasks to Create Final Output
 
 This project is divided into a series of subfolders that execute all of the tasks leading to final output beginning with downloaddata and ending with _finaltablesandfigures. Each subfolder contains both a code directory and, once-executed,  input and output directories. The `makefile` in the code folder documents how the inputs are converted in the outputs for the task. The input directory will have symbolic links to output from previous tasks, while the output directroy will include all of the output used by subsequent tasks. 

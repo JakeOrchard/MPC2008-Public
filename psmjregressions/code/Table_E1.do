@@ -27,9 +27,9 @@ end
 
 
 
-local dependentvars_table "d_pce d_mv d_other_nipa rbtamt" 
+local dependentvars_table "d_pce d_mv d_other_pce rbtamt" 
 
-local dependentvars "rbtamt d_pce d_mv d_other_nipa"
+local dependentvars "rbtamt d_pce d_mv d_other_pce"
 
 local absorbvars "intdate"
 
@@ -64,7 +64,6 @@ foreach version in "`versionlist'"{
 
 use ../output/psmjsampleinterview_wlabels.dta, clear
 
-drop nipa* psmj*
 
 *Separate cohort variable for heterogenous TWFE specications
 gen firstrbtintdate_esi = firstrbtintdate
@@ -99,7 +98,7 @@ xtset cuid intdate
 label var d_pce "PCE"
 label var lag_mv "Lag Motor Vehicle"
 label var d_mv "Motor Vehicle and Parts Spending"
-label var d_other_nipa "Other Spending"
+label var d_other_pce "Other Spending"
 label var lag_pce "Lag Total Expenditure"
 label var lag1rbtindicator "Lag Rebate Indicator"
 
@@ -529,7 +528,7 @@ if "`version'" == "hetconlag" |  "`version'" == "hetconlag_lc"{
 		local filename2 `"Table_AE2pres`vtype'`rebatename'"'
 
 	}
-	if "`depvar'" == "d_other_nipa"{
+	if "`depvar'" == "d_other_pce"{
 		local newlabel "PCE excluding motor vehicles and parts"
 		local tablename `"Table_AE3"'
 		local filename `"Table_AE3`vtype'`rebatename'"'

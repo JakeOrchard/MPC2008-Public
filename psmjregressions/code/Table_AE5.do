@@ -15,7 +15,6 @@ Step 0: Load Data
 
 use ../output/psmjsampleinterview_wlabels.dta, clear
 
-drop nipa* psmj*
 
 
 
@@ -55,7 +54,7 @@ xtset cuid intdate
 label var d_pce "PCE"
 label var lag_mv "Lag Motor Vehicle"
 label var d_mv "Motor Vehicle and Parts Spending"
-label var d_other_nipa "Other Spending"
+label var d_other_pce "Other Spending"
 label var lag_pce "Lag Total Expenditure"
 label var lag1rbtindicator "Lag Rebate Indicator"
 

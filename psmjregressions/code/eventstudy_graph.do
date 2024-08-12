@@ -23,7 +23,7 @@ keep if insample
 
 replace intdate = mofd(dofm(intdate))
 
-local plotvars nipa_mv_parts
+local plotvars mv_parts
 
 local mindate = ym(2007,12)
 local treatdate = ym(2008,6)

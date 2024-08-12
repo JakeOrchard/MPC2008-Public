@@ -62,7 +62,6 @@ foreach version in "`versionlist'"{
 		
 
 use ../output/psmjsampleinterview_wlabels.dta, clear
-drop nipa* psmj*
 
 
 *Separate cohort variable for heterogenous TWFE specications

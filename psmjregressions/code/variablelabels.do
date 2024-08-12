@@ -134,7 +134,12 @@ foreach frequency in "interview" "monthly"     { //
     Step 3: Save
 
     *******************************************************************************/
+    if "`frequency'" == "interview"{
+    	    keep if intdate <= ym(2009,6) & intdate >= ym(2007,6) 
 
+    }
+	compress 
     save ../output/psmjsample`frequency'_wlabels.dta, replace
+    zipfile ../output/psmjsample`frequency'_wlabels.dta, saving(../output/archive`frequency', replace)
 
 }

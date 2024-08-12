@@ -140,6 +140,6 @@ foreach frequency in "interview" "monthly"     { //
     }
 	compress 
     save ../output/psmjsample`frequency'_wlabels.dta, replace
-   
+    zipfile ../output/psmjsample`frequency'_wlabels.dta, saving(../output/archive`frequency', replace)
 
 }

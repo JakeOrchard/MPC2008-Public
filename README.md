@@ -1,6 +1,9 @@
 # MPC2008-Public
 Replication code for "Micro MPCs and Macro Counterfactuals: The Case of the 2008 Rebates" by Jacob Orchard, Valerie Ramey, and Johannes Wieland
 
+Tested on MAC and Linux using STATA version 16.1 and Python 3.11.
+
+**The project is set up to work in a MAC or LINUX enivironment (UNIX more generally).** We provide instructions for [Windows](#How-to Run-MPC project-on-a-Windows-Computer) below that worked for us but they require more setup and are not guaranteed to work.
 
 ## Permissions
 
@@ -15,22 +18,19 @@ Orchard, Jacob, Valerie A. Ramey, and Johannes F. Wieland. Micro MPCs and macro 
 
 You will need your own FREDKEY and BEA keys to download the source data. Place the FREDKEY in line 34 of `MPC/forecasting/code/build_forecast_data.do` and place the BEA key in line 14 of `MPC/downloaddata/code/pcefromBEA.py`. 
 
-We used STATA version 16.1 and Python 3.11 to run this project.
+We use `make` to run the entire project. `cd` into the base directory and run the following commands in your terminal:
 
-### UNIX and MAC users
-UNIX and MAC users can run the entire project using `make`. Simply type the following three commands in a terminal and the project will build from scratch. 
+1. `make venv`
 
-(1) `make install`
+2. `make`
 
-(2) `make venv`
-
-(3) `make`
+The first command builds the Python virtual environment, the second command executes the project. 
 
 Once `make` executes successfully, the paper figures and tables are available in the folder `_finaltablesandfigures/output`.
 
-The Monte Carlo simulations take XX hours to complete so we do not include them as part of the baseline replication flow. To run the Monte Carlo simulations execute this command:
+The Monte Carlo simulations take more than 24 hours to complete so we do not include them as part of the baseline replication flow. To run the Monte Carlo simulations execute this command:
 
-(4) `make montecarlo`
+(3) `make montecarlo`
 
 The Monte Carlo figures will be produced in the folder `montecarlo/output`.
 

@@ -28,14 +28,14 @@ foreach frequency in "interview" "monthly"     { //
 	gen car_finance = cars_nu - nipa_cars_downpayment
 
 	*OTHER NIPA Categories
-	gen other_nipa = pce -  mv
+	gen other_pce = pce -  mv
 	
 	*Parker Total 
 	gen pmv = cartkn + cartku
 
     if "`frequency'"=="interview" {
 	xtset cuid intdate
-	foreach var of varlist pce dpce mv spce ndpce cars_nu mv_parts net_used car_finance other_nipa nipa* pmv{
+	foreach var of varlist pce dpce mv spce ndpce cars_nu mv_parts net_used car_finance other_pce  pmv{
 		gen d_`var' = `var' -l3.`var' //First difference of NIPA variables
 		gen lag_`var' = l3.`var' // Lag of NIPA Variables
 
@@ -43,7 +43,7 @@ foreach frequency in "interview" "monthly"     { //
     }
     else if "`frequency'"=="monthly" {
         xtset cuid date
-	foreach var of varlist pce dpce mv spce ndpce mv_parts cars_nu net_used car_finance other_nipa nipa* pmv{
+	foreach var of varlist pce dpce mv spce ndpce mv_parts cars_nu net_used car_finance other_pce  pmv{
 		
 		cap gen d_`var' = `var' -l.`var' //First difference of NIPA variables
 		cap gen lag_`var' = l.`var' // Lag of NIPA Variables
@@ -112,10 +112,7 @@ foreach frequency in "interview" "monthly"     { //
     label variable d_net_used "$\Delta$ Net Used Vehicles"
     label variable d_cars_nu "$\Delta$ Vehicles (BEA)"
      label variable d_cars_n "$\Delta$ New Vehicle (BEA)"
-     label variable d_nipa_pcars_n "$\Delta$ New Car (BEA)"
-     label variable d_nipa_trucks_n "$\Delta$ New Truck (BEA)"
-     label variable d_nipa_usedautos "$\Delta$ Net Used Car (BEA)"
-     label variable d_nipa_usedlighttrucks "$\Delta$ Net Used Truck (BEA)"
+   
 
     rename cat_eft_x cat_eft
     lab var cat_eft "CU Ever Received Rebate Via"
@@ -128,6 +125,9 @@ foreach frequency in "interview" "monthly"     { //
     bys incdpool: sum lincome
     
 
+    *Drops unused variables
+    drop *nipa*
+    drop *psmj* 
     
     /*******************************************************************************
 
@@ -141,5 +141,5 @@ foreach frequency in "interview" "monthly"     { //
 	compress 
     save ../output/psmjsample`frequency'_wlabels.dta, replace
     zipfile ../output/psmjsample`frequency'_wlabels.dta, saving(../output/archive`frequency', replace)
-
+    export delimited using ../output/psmjsample`frequency'_wlabels.csv, replace  nolabel
 }

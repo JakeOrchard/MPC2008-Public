@@ -26,7 +26,6 @@ Step 0: Load Data
 
 
 use ../output/psmjsampleinterview_wlabels.dta, clear
-drop nipa* psmj*
 
 *Separate cohort variable for heterogenous TWFE specications
 gen firstrbtintdate_esi = firstrbtintdate
@@ -92,12 +91,12 @@ xi gen i.incdinterview
 
 
 	
-	local dependentvars_table "d_mv d_other_nipa"
-	local dependentvars "rbtamt d_pce d_mv d_other_nipa"
+	local dependentvars_table "d_mv d_other_pce"
+	local dependentvars "rbtamt d_pce d_mv d_other_pce"
 
 	local extravar "_Iincdinte* lag_pce lag_mv"
 	label var d_mv "Motor Vehicles"
-	label var d_other_nipa "Other PCE"
+	label var d_other_pce "Other PCE"
 	label var d_pce "Total PCE"
 	label var lag_mv "Lag Motor Vehicle"
 	label var lag_pce "Lag Total Expenditure"
@@ -320,7 +319,7 @@ local variablename "`: variable label `depvar''"
 		reg  `sudep' c.rbtindicator#firstrbtintdate_esi c.lag1rbtindicator#firstrbtintdate_esi  `controlvars' `add' i.intdate [w=finlwt21] if insample `rebatesample' 
 	estimates store b_`version'`sudep'
 	}
-		suest b_`version'rbtamt b_`version'd_pce  b_`version'd_mv b_`version'd_other_nipa, vce(cluster cuid)
+		suest b_`version'rbtamt b_`version'd_pce  b_`version'd_mv b_`version'd_other_pce, vce(cluster cuid)
 	
 
 	foreach sudep in `dependentvars' {

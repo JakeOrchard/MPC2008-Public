@@ -29,7 +29,7 @@ end
 
 local dependentvars_table "d_mv" 
 
-local dependentvars "rbtamt d_pce d_mv d_other_nipa"
+local dependentvars "rbtamt d_pce d_mv d_other_pce"
 
 local absorbvars "intdate cuid"
 
@@ -63,7 +63,6 @@ foreach version in "`versionlist'"{
 	
 
 use ../output/psmjsamplemonthly_wlabels.dta, clear
-drop nipa*
 
 *Separate cohort variable for heterogenous TWFE specications
 gen firstrbtdate_esi = firstrbtdate
@@ -89,7 +88,7 @@ keep if insample
 label var pce "PCE"
 label var lag_mv "Lag Motor Vehicle"
 label var d_mv "Motor Vehicle and Parts Spending"
-label var d_other_nipa "Other Spending"
+label var d_other_pce "Other Spending"
 label var lag_pce "Lag Total Expenditure"
 label var lag3rbtindicator "Lag 3 Rebate Indicator"
 

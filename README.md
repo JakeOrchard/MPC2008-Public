@@ -139,6 +139,3 @@ Type the following into **Git Bash**
 
 The entire project should run. 
 
-FYI, the createconsumptionvariables step requires a large amount of RAM. You can make this step go quicker by editing
-
-`MPC\globaloptions\hand\cexdownloadoptions.yml `so that the CEX start and end dates go from 2007-2009 rather than 1996-2019. Most of the code only needs the shorter time-span. 

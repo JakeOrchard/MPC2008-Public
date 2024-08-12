@@ -3,7 +3,7 @@ Replication code for "Micro MPCs and Macro Counterfactuals: The Case of the 2008
 
 Tested on MAC and Linux using STATA version 16.1 and Python 3.11.
 
-**The project is set up to work in a MAC or LINUX enivironment (UNIX more generally).** We provide instructions for [Windows](#How-to Run-MPC project-on-a-Windows-Computer) below that worked for us but they require more setup and are not guaranteed to work.
+**The project is set up to work in a MAC or LINUX enivironment (UNIX more generally).** We provide instructions for [Windows](#how-to-run-mpc-project-on-a-windows-computer) below that worked for us but they require more setup and are not guaranteed to work.
 
 ## Permissions
 
